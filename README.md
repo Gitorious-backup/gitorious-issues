@@ -1,3 +1,3 @@
-= GitoriousIssues
+# Gitorious Issue Tracker
 
-This project rocks and uses MIT-LICENSE.
+# TODO
