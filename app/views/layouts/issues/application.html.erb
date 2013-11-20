@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>GitoriousIssues</title>
-  <%= stylesheet_link_tag    "gitorious-issues/application", :media => "all" %>
-  <%= javascript_include_tag "gitorious-issues/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>Gitorious Issues Sandbox</title>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
 </html>

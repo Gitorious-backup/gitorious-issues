@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Issues::Engine => "/issues"
+  mount Issues::Engine => "/"
 end
