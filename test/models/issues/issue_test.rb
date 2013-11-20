@@ -1,6 +1,8 @@
 require 'test_helper'
 
 describe Issue do
+  fixtures :users, :projects
+
   describe 'validations' do
     it 'has errors when title is blank' do
       issue = Issue.create(:title => '')
@@ -21,6 +23,21 @@ describe Issue do
 
       issue.errors[:project].must_include("can't be blank")
       issue.persisted?.must_equal(false)
+    end
+  end
+
+  describe '#create' do
+    let(:user)    { users(:johan) }
+    let(:project) { projects(:johans) }
+
+    it 'persists issue when it has valid attributes' do
+      issue = Issue.create(
+        :title => 'test issue',
+        :project => project,
+        :user => user
+      )
+
+      issue.persisted?.must_equal(true)
     end
   end
 end

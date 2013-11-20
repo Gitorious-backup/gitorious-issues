@@ -27,23 +27,34 @@ Rails.backtrace_cleaner.remove_silencers!
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
-# Load fixtures from the engine
-if ActiveSupport::TestCase.method_defined?(:fixture_path=)
-  ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
-end
-
-include Issues
-
 require 'pathname'
 
 host_app_root = Pathname('../mainline').expand_path
 $LOAD_PATH.unshift(File.join(host_app_root, 'app/models'))
 $LOAD_PATH.unshift(File.join(host_app_root, 'lib'))
 
-require 'url_linting'
-require 'watchable'
+require 'gitorious'
 require 'gitorious/authorization'
 require 'gitorious/protectable'
 
+require 'url_linting'
+require 'watchable'
+require 'index_hint'
+
 require 'repository'
+require 'wiki_repository'
+
+require 'record_throttling'
+require 'action'
+require 'group_behavior'
+require 'group'
+
+require 'user'
 require 'project'
+
+# Load fixtures from the engine
+if ActiveSupport::TestCase.method_defined?(:fixture_path=)
+  ActiveSupport::TestCase.fixture_path = File.join(host_app_root, 'test/fixtures')
+end
+
+include Issues
