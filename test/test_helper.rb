@@ -33,3 +33,17 @@ if ActiveSupport::TestCase.method_defined?(:fixture_path=)
 end
 
 include Issues
+
+require 'pathname'
+
+host_app_root = Pathname('../mainline').expand_path
+$LOAD_PATH.unshift(File.join(host_app_root, 'app/models'))
+$LOAD_PATH.unshift(File.join(host_app_root, 'lib'))
+
+require 'url_linting'
+require 'watchable'
+require 'gitorious/authorization'
+require 'gitorious/protectable'
+
+require 'repository'
+require 'project'
