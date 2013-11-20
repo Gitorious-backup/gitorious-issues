@@ -4,9 +4,10 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 
-require "minitest/pride"
+require "minitest/spec"
 require "minitest/rails/capybara"
 require "minitest/reporters"
+
 require "capybara/poltergeist"
 require "capybara-screenshot/minitest"
 
