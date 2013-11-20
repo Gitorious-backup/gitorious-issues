@@ -1,4 +1,4 @@
-module Gitorious::Issues
+module Issues
   module ApplicationHelper
   end
 end

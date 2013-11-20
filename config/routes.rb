@@ -1,3 +1,3 @@
-Gitorious::Issues::Engine.routes.draw do
+Issues::Engine.routes.draw do
   root :to => 'application#index'
 end

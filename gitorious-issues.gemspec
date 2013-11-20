@@ -1,12 +1,12 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "gitorious/issues/version"
+require "issues/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "gitorious-issues"
-  s.version     = Gitorious::Issues::VERSION
+  s.version     = Issues::VERSION
   s.authors     = ["Gitorious AS"]
   s.email       = ["piotr@gitorious.org"]
   s.homepage    = "https://gitorious.org"

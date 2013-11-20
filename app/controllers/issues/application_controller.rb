@@ -1,4 +1,4 @@
-module Gitorious::Issues
+module Issues
   class ApplicationController < ActionController::Base
 
     def index

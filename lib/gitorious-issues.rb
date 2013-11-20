@@ -1,0 +1,1 @@
+require 'gitorious-issues/engine'
