@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113123654) do
+ActiveRecord::Schema.define(:version => 20131120190218) do
 
   create_table "archived_events", :force => true do |t|
     t.integer  "user_id"
@@ -158,6 +158,17 @@ ActiveRecord::Schema.define(:version => 20131113123654) do
 
   add_index "groups", ["name"], :name => "index_groups_on_name_and_public"
   add_index "groups", ["user_id"], :name => "index_groups_on_user_id"
+
+  create_table "issues_issues", :force => true do |t|
+    t.integer  "user_id",     :null => false
+    t.integer  "project_id",  :null => false
+    t.string   "title",       :null => false
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "issues_issues", ["user_id", "project_id"], :name => "index_issues_issues_on_user_id_and_project_id"
 
   create_table "ldap_groups", :force => true do |t|
     t.string   "name"
