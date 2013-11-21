@@ -38,6 +38,7 @@ describe Issue do
       )
 
       issue.persisted?.must_equal(true)
+      issue.issue_id.must_equal(1)
     end
   end
 end
