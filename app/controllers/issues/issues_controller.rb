@@ -6,6 +6,8 @@ module Issues
     before_filter :load_issues, :only => [:index]
     before_filter :build_issue, :only => [:create]
 
+    helper :application
+
     attr_reader :project, :issues, :issue
 
     def index
@@ -18,8 +20,12 @@ module Issues
 
     def create
       if issue.save
-        flash[:notice] = 'Issue created successfuly'
-        redirect_to [project, :issues]
+        if pjax_request?
+          flash[:notice] = 'Issue created successfuly'
+          redirect_to [project, :issues]
+        else
+          render_index
+        end
       else
         render_form(issue)
       end
