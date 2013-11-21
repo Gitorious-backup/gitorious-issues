@@ -1,5 +1,7 @@
 <%= gts_form_for([project, issue]) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.submit "Save" %>
+  <%= f.input :title, :placeholder => 'Title', :label => false, :input_html => { :class => 'input-expanded' } %>
+  <%= f.input :description, :placeholder => 'Description', :label => false %>
+  <%= f.actions do %>
+    <%= f.submit_button %>
+  <% end %>
 <% end %>
