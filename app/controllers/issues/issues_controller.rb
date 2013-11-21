@@ -1,12 +1,14 @@
 module Issues
 
-  class IssuesController < ApplicationController
+  class IssuesController < ::ApplicationController
+    include ProjectFilters
+
     before_filter :login_required, :except => [:index]
-    before_filter :load_project
-    before_filter :load_issues, :only => [:index]
+    before_filter :find_project
+    before_filter :find_issues, :only => [:index]
     before_filter :build_issue, :only => [:create]
 
-    helper :application
+    helper 'issues/application'
 
     attr_reader :project, :issues, :issue
 
@@ -21,10 +23,10 @@ module Issues
     def create
       if issue.save
         if pjax_request?
+          render_index
+        else
           flash[:notice] = 'Issue created successfuly'
           redirect_to [project, :issues]
-        else
-          render_index
         end
       else
         render_form(issue)
@@ -33,12 +35,8 @@ module Issues
 
     private
 
-    def load_issues
+    def find_issues
       @issues = Issue.where(:project_id => project.id)
-    end
-
-    def load_project
-      @project = Project.find_by_slug!(params[:project_id])
     end
 
     def build_issue
@@ -50,16 +48,16 @@ module Issues
     def render_index
       render(
         :template => 'issues/issues/index',
-        :locals => { :project => project, :issues => issues },
-        :layout => pjax_request? ? false : true
+        :locals => { :project => ProjectPresenter.new(project), :issues => issues, :active => :issues },
+        :layout => pjax_request? ? false : 'project'
       )
     end
 
     def render_form(issue)
       render(
         :template => 'issues/issues/new',
-        :locals => { :project => project, :issue => issue },
-        :layout => pjax_request? ? false : true
+        :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
+        :layout => pjax_request? ? false : 'project'
       )
     end
 
