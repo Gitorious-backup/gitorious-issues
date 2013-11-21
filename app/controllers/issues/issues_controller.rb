@@ -7,9 +7,12 @@ module Issues
     attr_reader :project, :issues
 
     def index
-      render :template => 'issues/issues/index', :locals => {
-        :project => project, :issues => issues
-      }
+      render :template => 'issues/issues/index',
+        :locals => {
+          :project => project, :issues => issues
+        },
+        :layout => pjax_request? ? false : true,
+        :content_type => 'text/html'
     end
 
     private

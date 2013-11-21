@@ -1,7 +1,5 @@
 Issues::Engine.routes.draw do
-  root :to => 'application#index'
-
-  resources :projects do
-    resources :issues
+  scope 'projects/:project_id' do
+    get 'issues' => 'issues#index', :as => :project_issues
   end
 end
