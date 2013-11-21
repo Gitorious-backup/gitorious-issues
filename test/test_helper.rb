@@ -1,7 +1,11 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+host_app_root = Pathname('../mainline').expand_path
+$LOAD_PATH.unshift(File.join(host_app_root, 'app/models'))
+$LOAD_PATH.unshift(File.join(host_app_root, 'lib'))
+
+require File.expand_path(File.join(host_app_root, 'config/environment'))
 require "rails/test_help"
 
 require "minitest/spec"
@@ -17,6 +21,14 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, :window_size => [1440, 900])
 end
 
+gts_conf = Gitorious::Configuration
+
+Capybara.configure do |config|
+  config.javascript_driver = :poltergeist
+  config.server_port       = 3001
+  config.app_host          = "#{gts_conf.get('scheme')}://#{gts_conf.get('client_host')}:#{gts_conf.get('client_port')}"
+end
+
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Assertions
@@ -28,10 +40,6 @@ Rails.backtrace_cleaner.remove_silencers!
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 require 'pathname'
-
-host_app_root = Pathname('../mainline').expand_path
-$LOAD_PATH.unshift(File.join(host_app_root, 'app/models'))
-$LOAD_PATH.unshift(File.join(host_app_root, 'lib'))
 
 require 'gitorious'
 require 'gitorious/authorization'
