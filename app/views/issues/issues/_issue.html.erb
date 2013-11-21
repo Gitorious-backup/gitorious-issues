@@ -1,3 +1,17 @@
-<li>
-  <%= issue.title %>
-</li>
+<tr>
+  <td>
+    <%= check_box_tag "issue-#{issue.id}" %>
+  </td>
+  <td>
+    <%= issue.issue_id %>
+  </td>
+  <td>
+    <%= issue.title %>
+  </td>
+  <td>
+    <%= issue.user.fullname || issue.user.login %>
+  </td>
+  <td>
+    <%= time_ago(issue.created_at) %>
+  </td>
+</tr>

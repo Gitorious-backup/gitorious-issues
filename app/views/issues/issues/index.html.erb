@@ -4,7 +4,18 @@
     <%= project.title %>'s issues
   </h2>
 
-  <ul>
-    <%= render issues %>
-  </ul>
+  <table class="table table-stripped gts-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Created at</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render issues %>
+    </tbody>
+  </table>
 </div>
