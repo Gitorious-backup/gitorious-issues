@@ -12,8 +12,9 @@
     <%= tab_pane 'discussion', :active => true do %>
       <%= render 'issues/comments/comments', :comments => issue.comments %>
       <br/>
-      <h3 class="gts-legend">Add a comment</h3>
-      <%= render 'issues/comments/form', :comment => issue.comments.build, :issue => issue, :project => project %>
+      <% if logged_in? %>
+        <%= render 'issues/comments/form', :comment => issue.comments.build, :issue => issue, :project => project %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
