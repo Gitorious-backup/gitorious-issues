@@ -8,9 +8,9 @@ feature 'Listing issues' do
   let(:routes)  { Issues::Engine.routes.url_helpers }
 
   background do
-    Issue.create!(:title => 'issue #1', :project => project, :user => user)
-    Issue.create!(:title => 'issue #2', :project => project, :user => user)
-    Issue.create!(:title => 'issue #3', :project => projects(:moes), :user => user)
+    Issues::Issue.create!(:title => 'issue #1', :project => project, :user => user)
+    Issues::Issue.create!(:title => 'issue #2', :project => project, :user => user)
+    Issues::Issue.create!(:title => 'issue #3', :project => projects(:moes), :user => user)
   end
 
   scenario 'visting project issues page' do

@@ -65,5 +65,3 @@ require 'project'
 if ActiveSupport::TestCase.method_defined?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.join(host_app_root, 'test/fixtures')
 end
-
-include Issues
