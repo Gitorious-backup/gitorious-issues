@@ -30,5 +30,14 @@ feature 'Listing issues' do
 
     page.must_have_content 'Comment added successfuly'
     page.must_have_content 'oh hai'
+
+    within(".gts-comment") do
+      click_on 'Edit'
+    end
+
+    find('#comment_body').set('oh hai again')
+    click_on 'Save'
+    page.must_have_content 'Your comment was updated'
+    page.must_have_content 'oh hai again'
   end
 end
