@@ -3,9 +3,10 @@ module Issues
   class IssuesController < ::ApplicationController
     include ProjectFilters
 
-    before_filter :login_required, :except => [:index]
+    before_filter :login_required, :except => [:index, :show]
     before_filter :find_project
     before_filter :find_issues, :only => [:index]
+    before_filter :find_issue,  :only => [:show]
     before_filter :build_issue, :only => [:create]
 
     helper 'issues/application'
@@ -33,10 +34,22 @@ module Issues
       end
     end
 
+    def show
+      render(
+        :template => 'issues/issues/show',
+        :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
+        :layout => pjax_request? ? false : 'project'
+      )
+    end
+
     private
 
     def find_issues
       @issues = Issue.where(:project_id => project.id)
+    end
+
+    def find_issue
+      @issue = Issue.where(:project_id => project.id, :issue_id => params[:issue_id]).first
     end
 
     def build_issue

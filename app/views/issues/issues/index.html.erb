@@ -1,5 +1,7 @@
 <div id="gts-pjax-container">
-  <%= link_to 'Add issue', new_project_issue_path(project), :class => 'btn btn-primary pull-right' %>
+  <div class="gts-pjax">
+    <%= link_to 'Add issue', new_project_issue_path(project), :class => 'btn btn-primary pull-right' %>
+  </div>
   <h2 class="gts-legend">
     <%= project.title %>'s issues
   </h2>

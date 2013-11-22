@@ -1,6 +1,8 @@
 require "test_helper"
 
 feature 'Create an issue' do
+  include CapybaraTestCase
+
   fixtures :users, :projects
 
   let(:user)    { users(:johan) }
@@ -23,5 +25,10 @@ feature 'Create an issue' do
     click_on 'Save'
 
     page.must_have_content('issue #1')
+
+    click_on 'issue #1'
+
+    page.must_have_content('issue #1')
+    page.must_have_content('this should be easy to fix luls')
   end
 end

@@ -5,8 +5,8 @@
   <td>
     <%= issue.issue_id %>
   </td>
-  <td>
-    <%= issue.title %>
+  <td class="gts-pjax">
+    <%= link_to issue.title, project_issue_path(issue.project, issue) %>
   </td>
   <td>
     <%= issue.user.fullname || issue.user.login %>

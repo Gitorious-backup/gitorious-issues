@@ -14,6 +14,7 @@ require "minitest/reporters"
 
 require "capybara/poltergeist"
 require "capybara-screenshot/minitest"
+require host_app_root.join('test/capybara_test_case')
 
 Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
 
