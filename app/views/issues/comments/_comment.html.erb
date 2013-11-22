@@ -1,0 +1,12 @@
+<div class="gts-comment">
+  <div class="gts-comment-header">
+    <%= avatar(comment.user, :size => '24') %>
+    <%= link_to(comment.user.fullname || comment.user.login, main_app.user_path(comment.user)) %>
+    <div class="gts-comment-meta">
+      <%= time_ago(comment.created_at) %>
+    </div>
+  </div>
+  <div class="gts-comment-body">
+    <%= render_markdown(comment.body) %>
+  </div>
+</div>

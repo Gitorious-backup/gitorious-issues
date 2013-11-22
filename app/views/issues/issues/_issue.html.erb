@@ -9,7 +9,7 @@
     <%= content_tag :span, issue.state, :class => 'label' %>
   </td>
   <td class="gts-pjax">
-    <%= link_to issue.title, project_issue_path(issue.project, issue) %>
+    <%= link_to issue.title, project_issue_path(issue.project, :issue_id => issue.issue_id) %>
   </td>
   <td>
     <%= issue.user.fullname || issue.user.login %>

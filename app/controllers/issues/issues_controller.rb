@@ -71,7 +71,7 @@ module Issues
     end
 
     def find_issue
-      @issue = Issue.where(:project_id => project.id, :issue_id => params[:issue_id]).first
+      @issue = Issue.find_by_project_id_and_issue_id!(project.id, params[:issue_id])
     end
 
     def build_issue

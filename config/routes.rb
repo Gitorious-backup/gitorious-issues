@@ -6,5 +6,10 @@ Issues::Engine.routes.draw do
     get 'issues/:issue_id/edit' => 'issues#edit', :as => :edit_project_issue
     put 'issues/:issue_id' => 'issues#update'
     post 'issues' => 'issues#create'
+
+    scope 'issues/:issue_id' do
+      get 'comments' => 'comments#index', :as => :project_issue_comments
+      post 'comments' => 'comments#create'
+    end
   end
 end

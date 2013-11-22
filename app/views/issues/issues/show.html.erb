@@ -1,6 +1,6 @@
 <div id="gts-pjax-container">
   <div class="gts-pjax">
-    <%= link_to 'Edit', edit_project_issue_path(issue.project, issue), :class => 'btn btn-primary pull-right' %>
+    <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id), :class => 'btn btn-primary pull-right' %>
   </div>
   <h2 class="gts-legend">
     <%= issue.title %>
@@ -8,4 +8,12 @@
   <div class="gts-markup">
     <%= simple_format(issue.description) %>
   </div>
+  <br/>
+  <%= tabbable({ 'discussion' => '#discussion' }, :active => 'discussion') do %>
+    <%= tab_pane 'discussion', :active => true do %>
+      <%= render 'issues/comments/comments', :comments => issue.comments %>
+      <h3 class="gts-legend">Add a comment</h3>
+      <%= render 'issues/comments/form', :comment => issue.comments.build, :issue => issue, :project => project %>
+    <% end %>
+  <% end %>
 </div>

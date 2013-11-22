@@ -14,7 +14,13 @@ module Issues
     belongs_to :user
     belongs_to :project
 
+    has_many :comments, :dependent => :destroy
+
     before_create :set_issue_id, :set_default_state
+
+    def to_param
+      issue_id
+    end
 
     private
 

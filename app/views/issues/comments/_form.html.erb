@@ -1,0 +1,6 @@
+<%= gts_form_for([project, issue, comment]) do |f| %>
+  <%= f.input :body, :placeholder => 'Body', :label => false, :input_html => { :class => 'input-expanded' } %>
+  <%= f.actions do %>
+    <%= f.submit_button %>
+  <% end %>
+<% end %>
