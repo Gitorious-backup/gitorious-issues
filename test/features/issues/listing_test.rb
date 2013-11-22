@@ -31,7 +31,7 @@ feature 'Listing issues' do
     page.must_have_content 'Comment added successfuly'
     page.must_have_content 'oh hai'
 
-    within(".gts-comment") do
+    within(".gts-comment-list") do
       click_on 'Edit'
     end
 
