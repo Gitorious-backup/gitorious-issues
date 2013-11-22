@@ -30,5 +30,13 @@ feature 'Create an issue' do
 
     page.must_have_content('issue #1')
     page.must_have_content('this should be easy to fix luls')
+
+    click_on 'Edit'
+
+    find('#issue_title').set('issue number one')
+    click_on 'Save'
+
+    page.must_have_content('Issue updated successfuly')
+    page.must_have_content('issue number one')
   end
 end

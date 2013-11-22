@@ -6,7 +6,7 @@ module Issues
     before_filter :login_required, :except => [:index, :show]
     before_filter :find_project
     before_filter :find_issues, :only => [:index]
-    before_filter :find_issue,  :only => [:show]
+    before_filter :find_issue,  :only => [:show, :edit, :update]
     before_filter :build_issue, :only => [:create]
 
     helper 'issues/application'
@@ -40,6 +40,27 @@ module Issues
         :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
         :layout => pjax_request? ? false : 'project'
       )
+    end
+
+    def edit
+      render(
+        :template => 'issues/issues/edit',
+        :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
+        :layout => pjax_request? ? false : 'project'
+      )
+    end
+
+    def update
+      if issue.update_attributes(params[:issue])
+        if pjax_request?
+          render_index
+        else
+          flash[:notice] = 'Issue updated successfuly'
+          redirect_to [project, :issues]
+        end
+      else
+        render_form(issue)
+      end
     end
 
     private

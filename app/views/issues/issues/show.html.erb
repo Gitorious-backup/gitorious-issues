@@ -1,8 +1,10 @@
 <div id="gts-pjax-container">
+  <div class="gts-pjax">
+    <%= link_to 'Edit', edit_project_issue_path(issue.project, issue), :class => 'btn btn-primary pull-right' %>
+  </div>
   <h2 class="gts-legend">
     <%= issue.title %>
   </h2>
-
   <div class="gts-markup">
     <%= simple_format(issue.description) %>
   </div>
