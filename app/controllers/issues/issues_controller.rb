@@ -67,7 +67,7 @@ module Issues
     private
 
     def find_issues
-      @issues = Issue.where(:project_id => project.id)
+      @issues = Issue.where(:project_id => project.id).sorted
     end
 
     def find_issue

@@ -18,6 +18,10 @@ module Issues
 
     before_create :set_issue_id, :set_default_state
 
+    def self.sorted
+      order('created_at DESC')
+    end
+
     def to_param
       issue_id
     end
