@@ -1,6 +1,15 @@
 <%= gts_form_for([project, issue]) do |f| %>
-  <%= f.input :title, :placeholder => 'Title', :label => false, :input_html => { :class => 'input-expanded' } %>
-  <%= f.input :description, :placeholder => 'Description', :label => false %>
+  <div class="row-fluid">
+    <div class="span8">
+      <%= f.input :title, :placeholder => 'Title', :label => false, :input_html => { :class => 'input-expanded' } %>
+      <%= f.input :description, :placeholder => 'Description', :label => false %>
+    </div>
+    <div class="span4">
+      <div class="well gts-issue-sidebar-fields">
+        <%= f.input :state, :as => :select, :collection => %w(new open resolved invalid), :default => 'new', :input_html => { :class => 'input-small' } %>
+      </div>
+    </div>
+  </div>
   <%= f.actions do %>
     <%= f.submit_button %>
   <% end %>

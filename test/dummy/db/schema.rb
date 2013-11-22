@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121223226) do
+ActiveRecord::Schema.define(:version => 20131122084818) do
 
   create_table "archived_events", :force => true do |t|
     t.integer  "user_id"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20131121223226) do
   add_index "groups", ["user_id"], :name => "index_groups_on_user_id"
 
   create_table "issues_issues", :force => true do |t|
+    t.string   "state",       :null => false
     t.integer  "issue_id",    :null => false
     t.integer  "project_id",  :null => false
     t.integer  "user_id",     :null => false

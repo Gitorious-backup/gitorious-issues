@@ -10,6 +10,7 @@ module Issues
     before_filter :build_issue, :only => [:create]
 
     helper 'issues/application'
+    layout 'issues'
 
     attr_reader :project, :issues, :issue
 
@@ -38,7 +39,7 @@ module Issues
       render(
         :template => 'issues/issues/show',
         :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
-        :layout => pjax_request? ? false : 'project'
+        :layout => pjax_request? ? false : true
       )
     end
 
@@ -46,7 +47,7 @@ module Issues
       render(
         :template => 'issues/issues/edit',
         :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
-        :layout => pjax_request? ? false : 'project'
+        :layout => pjax_request? ? false : true
       )
     end
 
@@ -83,7 +84,7 @@ module Issues
       render(
         :template => 'issues/issues/index',
         :locals => { :project => ProjectPresenter.new(project), :issues => issues, :active => :issues },
-        :layout => pjax_request? ? false : 'project'
+        :layout => pjax_request? ? false : true
       )
     end
 
@@ -91,7 +92,7 @@ module Issues
       render(
         :template => 'issues/issues/new',
         :locals => { :project => ProjectPresenter.new(project), :issue => issue, :active => :issues },
-        :layout => pjax_request? ? false : 'project'
+        :layout => pjax_request? ? false : true
       )
     end
 

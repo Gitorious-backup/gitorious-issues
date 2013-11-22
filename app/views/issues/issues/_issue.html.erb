@@ -5,6 +5,9 @@
   <td>
     <%= issue.issue_id %>
   </td>
+  <td>
+    <%= content_tag :span, issue.state, :class => 'label' %>
+  </td>
   <td class="gts-pjax">
     <%= link_to issue.title, project_issue_path(issue.project, issue) %>
   </td>

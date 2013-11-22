@@ -39,6 +39,7 @@ describe Issue do
 
       issue.persisted?.must_equal(true)
       issue.issue_id.must_equal(1)
+      issue.state.must_equal('new')
     end
   end
 end

@@ -2,6 +2,7 @@ class CreateIssuesIssues < ActiveRecord::Migration
   def change
     create_table :issues_issues do |t|
       t.integer :id
+      t.string :state, :null => false
       t.integer :issue_id, :null => false
       t.integer :project_id, :null => false
       t.integer :user_id, :null => false
