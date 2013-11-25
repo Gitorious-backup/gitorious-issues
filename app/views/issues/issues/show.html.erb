@@ -3,6 +3,14 @@
     <div class="btn-group gts-pjax">
       <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id), :class => 'btn' %>
     </div>
+    <div class="gts-pullbox-content-meta">
+      <div class="issue-assignees">
+        Assigned users:
+        <% issue.assignees.each do |user| %>
+          <%= link_to user.login, main_app.user_path(user) %>
+        <% end %>
+      </div>
+    </div>
     <div class="gts-markup">
       <%= simple_format(issue.description) %>
     </div>

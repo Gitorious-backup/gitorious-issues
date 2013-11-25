@@ -15,6 +15,11 @@ module Issues
     belongs_to :project
 
     has_many :comments, :dependent => :destroy
+    has_many :issue_users, :dependent => :destroy
+    has_many :assignees, :through => :issue_users, :class_name => 'User', :source => :user
+
+    has_many :issue_labels, :dependent => :destroy
+    has_many :labels, :through => :issue_labels
 
     before_create :set_issue_id, :set_default_state
 
@@ -24,6 +29,29 @@ module Issues
 
     def to_param
       issue_id
+    end
+
+    def assignee_candidates
+      project.repositories.
+        flat_map(&:committerships).
+        map(&:committer).
+        flat_map { |committer| committer.is_a?(User) ? committer : committer.members }.
+        reject { |user| assignees.include?(user) }
+    end
+
+    def update_assignees(ids)
+      to_assign = ids.map { |id| User.find(id) }
+      to_remove = assignees - to_assign
+
+      to_assign.each do |user|
+        assignees << user unless assignees.include?(user)
+      end
+
+      to_remove.each do |user|
+        assignees.delete(user)
+      end
+
+      self
     end
 
     private

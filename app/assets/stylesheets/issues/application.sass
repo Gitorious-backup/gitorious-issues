@@ -14,6 +14,24 @@
 
 .form-horizontal
   .gts-issue-sidebar-fields
+    .issue-assignee-widget
+      position: relative
+
+      .ui-autocomplete
+        margin: 30px 0 0 34%
+        width: 60%
+
+      .issue-assignees
+        list-style: none
+        margin: 10px 0
+
+        li
+          display: inline-block
+          margin-right: 10px
+
+          &.last-child
+            margin-right: 0
+
     .control-label
       width: 30%
       margin-right: 10px
@@ -36,3 +54,7 @@
   .gts-comment-body
     border: none
     background: #fff
+
+.gts-pullbox-content-meta
+  padding: 10px
+  border-bottom: 1px solid #f4f4f4

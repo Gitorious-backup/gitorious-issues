@@ -12,6 +12,8 @@ require "minitest/spec"
 require "minitest/rails/capybara"
 require "minitest/reporters"
 
+require "database_cleaner"
+
 require "capybara/poltergeist"
 require "capybara-screenshot/minitest"
 require host_app_root.join('test/capybara_test_case')
@@ -24,11 +26,18 @@ end
 
 gts_conf = Gitorious::Configuration
 
+Capybara.javascript_driver = :poltergeist
+Capybara.default_host      = 'gitorious.test'
+
 Capybara.configure do |config|
   config.javascript_driver = :poltergeist
   config.server_port       = 3001
   config.app_host          = "#{gts_conf.get('scheme')}://#{gts_conf.get('client_host')}:#{gts_conf.get('client_port')}"
 end
+
+DatabaseCleaner.strategy = :truncation
+
+WebMock.disable_net_connect!(:allow_localhost => true)
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL

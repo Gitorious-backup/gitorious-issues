@@ -1,6 +1,9 @@
 this.gts = this.gts || {};
 
 this.gts.expandableTextarea = (function() {
+  var initialized = false;
+
+  if (initialized) return;
 
   return function(textarea) {
     $el = $(textarea);
@@ -13,10 +16,99 @@ this.gts.expandableTextarea = (function() {
       if (this.value) return;
       $(this).addClass('gts-textarea-expandable');
     });
+
+    initialized = true;
+  };
+
+}());
+
+this.gts.issueAssigneeAutocomplete = (function() {
+  var initialized = false;
+
+  if (initialized) return;
+
+  return function(input, assignees_json) {
+    var assignees = $.parseJSON(assignees_json);
+
+    $input = $(input);
+    $list  = $input.parents('.issue-assignee-widget').find('.issue-assignees');
+
+    function createButton(item) {
+      var value, label;
+
+      value = item.id;
+      label = item.label;
+
+      var $li = $('<li/>');
+
+      $li.append(
+        $('<button class="btn"></button>')
+          .val(value).html('<i class="icon-remove"></i>'+label).addClass('btn')
+      );
+
+      $li.append(
+        $('<input type="hidden" name="assignee_ids[]"/>').val(value)
+      );
+
+      return $li;
+    }
+
+    function appendAssignee(item) {
+      $list.append(createButton(item));
+    }
+
+    function findUser() {
+      var login = $input.val();
+      return cull.first(function(el) { return el.label == login }, assignees);
+    }
+
+    function onConfirm() {
+      var item = $input.data('item');
+      if (!item) item = findUser();
+      if (item) {
+        appendAssignee(item);
+        $input.val('');
+      }
+    }
+
+    $input.next('a[data-behavior="assign-user"]').click(function(e) {
+      e.preventDefault();
+      onConfirm();
+    });
+
+    $input.autocomplete({
+      source: assignees,
+      position: { my : "right top", at: "right bottom" },
+      select: function(e, ui) {
+        var item = ui.item;
+        $input.val(item.label);
+        $input.data('item', item);
+        e.preventDefault();
+      }
+    });
+
+    $input.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+        onConfirm();
+      }
+    });
+
+    $list.on('click', 'button', function(e) {
+      e.preventDefault();
+      $(this).parent().remove();
+    });
+
+    initialized = true;
   };
 
 }());
 
 gts.app.feature('expandable-textarea', gts.expandableTextarea, {
   elements: ['gts-textarea-expandable']
+});
+
+gts.app.feature('issue-assignee-autocomplete', gts.issueAssigneeAutocomplete, {
+  elements: ['gts-issue-assignee-candidate'],
+  depends: ['issue-assignee-candidates']
 });

@@ -3,17 +3,15 @@ require "test_helper"
 feature 'Create an issue' do
   include CapybaraTestCase
 
-  fixtures :users, :projects
+  js_test
 
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
 
-  background do
-    user.sign_in
-  end
-
   scenario 'visting project issues page' do
+    user.sign_in
+
     visit routes.new_project_issue_path(project)
 
     user.create_issue
@@ -28,9 +26,18 @@ feature 'Create an issue' do
     click_on 'Edit'
 
     find('#issue_title').set('issue number one')
+    find('#issue_assignee_candidate').set('johan')
+
+    click_on 'Assign'
     click_on 'Save'
 
     page.must_have_content('Issue updated successfuly')
     page.must_have_content('issue number one')
+
+    click_on 'issue number one'
+
+    within('.issue-assignees') do
+      page.must_have_content 'johan'
+    end
   end
 end

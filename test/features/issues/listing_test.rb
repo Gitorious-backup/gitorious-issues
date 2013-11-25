@@ -3,7 +3,7 @@ require "test_helper"
 feature 'Listing issues' do
   include CapybaraTestCase
 
-  fixtures :users, :projects
+  js_test
 
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
