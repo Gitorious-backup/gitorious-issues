@@ -18,7 +18,7 @@ require "capybara/poltergeist"
 require "capybara-screenshot/minitest"
 require host_app_root.join('test/capybara_test_case')
 
-Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
+Minitest::Reporters.use!(Minitest::Reporters::DefaultReporter.new)
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, :window_size => [1440, 900])
