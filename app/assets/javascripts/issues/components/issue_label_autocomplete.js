@@ -7,18 +7,19 @@ this.gts.issueLabelAutocomplete = (function() {
     var $list  = $input.parents('.issue-label-widget').find('.issue-labels');
 
     function createButton(item) {
-      var value, label;
+      var value, label, color, $li;
 
       value = item.id;
       label = item.label;
       color = item.color;
 
-      var $li = $('<li/>');
+      $li = $('<li/>');
 
       $li.append(
         $('<button class="btn btn-mini"></button>')
           .css({ backgroundColor: color })
-          .val(value).html('<i class="icon-remove icon-white"></i>'+label)
+          .html('<i class="icon-remove icon-white"></i>'+label)
+          .attr('id', 'label-'+value)
       );
 
       $li.append(
@@ -41,6 +42,7 @@ this.gts.issueLabelAutocomplete = (function() {
       var item = $input.data('item');
       if (!item) item = findLabel();
       if (item) {
+        if ($list.find('#label-'+item.id).length > 0) return;
         appendLabel(item);
         $input.val('');
       }
@@ -55,6 +57,7 @@ this.gts.issueLabelAutocomplete = (function() {
       if (e.which == 13) {
         e.preventDefault();
         onConfirm();
+        $input.autocomplete('close');
       }
     });
 

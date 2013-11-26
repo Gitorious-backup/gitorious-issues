@@ -1,7 +1,4 @@
 this.gts.issueAssigneeAutocomplete = (function() {
-  var initialized = false;
-
-  if (initialized) return;
 
   return function(input, assignees_json) {
     var assignees = $.parseJSON(assignees_json);

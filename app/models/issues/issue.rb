@@ -40,6 +40,10 @@ module Issues
         reject { |user| assignees.include?(user) }
     end
 
+    def label_candidates
+      Label.where(:project_id => project_id) - labels
+    end
+
     def update_assignees(ids)
       update_collection(ids, :assignees, User)
     end

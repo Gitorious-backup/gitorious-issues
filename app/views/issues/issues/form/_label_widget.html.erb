@@ -1,4 +1,4 @@
-<% labels = Issues::Label.where(:project_id => issue.project_id).map { |label| { :label => label.name, :id => label.id, :color => label.color } } %>
+<% labels = issue.label_candidates.map { |label| { :label => label.name, :id => label.id, :color => label.color } } %>
 
 <%= content_tag :div, :class => 'ui-front issue-label-widget autocomplete-widget', :data => { 'gts-env-project-labels' => labels } do %>
   <%= f.label 'Labels' %>
