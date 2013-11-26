@@ -9,6 +9,8 @@
         <%= f.input :state, :as => :select, :collection => %w(new open resolved invalid), :default => 'new', :input_html => { :class => 'input-small' } %>
         <hr/>
         <%= render 'issues/issues/form/assignee_widget', :issue => issue, :f => f %>
+        <hr/>
+        <%= render 'issues/issues/form/label_widget', :issue => issue, :f => f %>
       </div>
     </div>
   </div>

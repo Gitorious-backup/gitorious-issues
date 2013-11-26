@@ -3,7 +3,7 @@
     <div class="btn-group gts-pjax">
       <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id), :class => 'btn' %>
     </div>
-    <div class="gts-pullbox-content-meta">
+    <div class="gts-pullbox-content-meta gts-pullbox-content-meta-top">
       <div class="issue-assignees">
         Assigned users:
         <% issue.assignees.each do |user| %>
@@ -13,6 +13,14 @@
     </div>
     <div class="gts-markup">
       <%= simple_format(issue.description) %>
+    </div>
+    <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
+      <div class="issue-labels">
+        Labels:
+        <% issue.labels.each do |label| %>
+          <%= content_tag(:span, label.name, :class => 'label', :style => "background-color: #{label.color}") %>
+        <% end %>
+      </div>
     </div>
   <% end %>
   <br/>

@@ -24,9 +24,11 @@ module Issues
 
     def create
       assignee_ids = params.fetch(:assignee_ids, [])
+      label_ids    = params.fetch(:label_ids, [])
 
       if issue.save
         issue.update_assignees(assignee_ids)
+        issue.update_labels(label_ids)
 
         if pjax_request?
           render_index
@@ -57,9 +59,11 @@ module Issues
 
     def update
       assignee_ids = params.fetch(:assignee_ids, [])
+      label_ids    = params.fetch(:label_ids, [])
 
       if issue.update_attributes(params[:issue])
         issue.update_assignees(assignee_ids)
+        issue.update_labels(label_ids)
 
         if pjax_request?
           render_index

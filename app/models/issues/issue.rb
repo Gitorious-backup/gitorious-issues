@@ -1,4 +1,5 @@
 module Issues
+
   class Issue < ActiveRecord::Base
     STATE_NEW      = 'new'.freeze
     STATE_OPEN     = 'open'.freeze
@@ -40,18 +41,11 @@ module Issues
     end
 
     def update_assignees(ids)
-      to_assign = ids.map { |id| User.find(id) }
-      to_remove = assignees - to_assign
+      update_collection(ids, :assignees, User)
+    end
 
-      to_assign.each do |user|
-        assignees << user unless assignees.include?(user)
-      end
-
-      to_remove.each do |user|
-        assignees.delete(user)
-      end
-
-      self
+    def update_labels(ids)
+      update_collection(ids, :labels, Label)
     end
 
     private
@@ -64,5 +58,23 @@ module Issues
     def set_default_state
       self.state ||= DEFAULT_STATE
     end
+
+    def update_collection(ids, name, model)
+      collection = public_send(name)
+      to_assign  = ids.map { |id| model.find(id) }
+      to_remove  = collection - to_assign
+
+      to_assign.each do |member|
+        collection << member unless collection.include?(member)
+      end
+
+      to_remove.each do |member|
+        collection.delete(member)
+      end
+
+      self
+    end
+
   end
+
 end

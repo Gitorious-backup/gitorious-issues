@@ -10,7 +10,6 @@ class CreateIssuesLabels < ActiveRecord::Migration
     end
 
     add_index :issues_labels, :project_id
-    add_index :issues_labels, [:project_id, :name]
-    add_index :issues_labels, [:name, :color], :unique => true
+    add_index :issues_labels, [:project_id, :name], :unique => true
   end
 end

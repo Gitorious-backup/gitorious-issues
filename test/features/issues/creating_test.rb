@@ -5,6 +5,10 @@ feature 'Create an issue' do
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
 
+  background do
+    Issues::Label.create!(:color => 'red', :name => 'bug', :project => project)
+  end
+
   scenario 'visting project issues page', :js => true do
     user.sign_in
 
@@ -22,9 +26,17 @@ feature 'Create an issue' do
     click_on 'Edit'
 
     find('#issue_title').set('issue number one')
-    find('#issue_assignee_candidate').set('johan')
 
-    click_on 'Assign'
+    within('.issue-assignee-widget') do
+      find('#issue_assignee_candidate').set('johan')
+      click_on 'Assign'
+    end
+
+    within('.issue-label-widget') do
+      find('#issue_label').set('bug')
+      click_on 'Add'
+    end
+
     click_on 'Save'
 
     page.must_have_content('Issue updated successfuly')
@@ -34,6 +46,10 @@ feature 'Create an issue' do
 
     within('.issue-assignees') do
       page.must_have_content 'johan'
+    end
+
+    within('.issue-labels') do
+      page.must_have_content 'bug'
     end
   end
 end
