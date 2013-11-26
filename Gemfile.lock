@@ -442,7 +442,7 @@ DEPENDENCIES
   mime-types (~> 1.16)
   minitest (~> 4.7)
   minitest-rails (~> 0.9.2)
-  minitest-rails-capybara
+  minitest-rails-capybara (~> 0.10)
   minitest-reporters (~> 0.14)
   mocha (= 0.13.3)
   mysql2
@@ -483,7 +483,7 @@ DEPENDENCIES
   unicorn (~> 4.6.3)
   use_case
   virtus (~> 1.0.0)
-  webmock
+  webmock (~> 1.13)
   wikicloth
   will_paginate (~> 3.0)
   zeus (= 0.13.4.pre2)
