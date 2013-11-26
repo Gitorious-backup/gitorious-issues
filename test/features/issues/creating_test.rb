@@ -1,15 +1,11 @@
 require "test_helper"
 
 feature 'Create an issue' do
-  include CapybaraTestCase
-
-  js_test
-
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
 
-  scenario 'visting project issues page' do
+  scenario 'visting project issues page', :js => true do
     user.sign_in
 
     visit routes.new_project_issue_path(project)

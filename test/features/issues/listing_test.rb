@@ -1,10 +1,6 @@
 require "test_helper"
 
 feature 'Listing issues' do
-  include CapybaraTestCase
-
-  js_test
-
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
@@ -15,7 +11,7 @@ feature 'Listing issues' do
     3.times { |i| user.create_issue(:title => "issue ##{i}") }
   end
 
-  scenario 'visting project issues page' do
+  scenario 'visting project issues page', :js => true do
     visit routes.project_issues_path(project)
 
     assert_content page, project.title
