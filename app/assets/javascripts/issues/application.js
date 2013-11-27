@@ -20,3 +20,11 @@ gts.app.feature('issue-label-autocomplete', gts.issueLabelAutocomplete, {
   elements: ['gts-issue-label'],
   depends: ['project-labels']
 });
+
+gts.app.feature('issue-filters', gts.issueFilters, {
+  elements: ['gts-issue-filters']
+});
+
+$(function() {
+  $('.gts-date-picker').datepicker();
+});

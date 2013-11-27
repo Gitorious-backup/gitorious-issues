@@ -1,25 +1,48 @@
 <div id="gts-pjax-container">
   <div class="gts-pjax pull-right">
     <%= link_to 'Manage labels', project_issue_labels_path(project), :class => 'btn' %>
+    <%= link_to 'Manage milestones', project_issue_milestones_path(project), :class => 'btn' %>
+    <%= link_to 'Add issue', new_project_issue_path(project), :class => 'btn btn-primary' %>
   </div>
   <h2 class="gts-legend">
     <%= project.title %>'s issues
   </h2>
-  <div class="gts-pjax pull-right">
-    <%= link_to 'Add issue', new_project_issue_path(project), :class => 'btn btn-primary' %>
+  <div class="well">
+    <%= simple_form_for(query, :url => project_issues_path, :method => :get, :html => { :class => 'form-horizontal gts-issue-filters' }) do |f| %>
+      <div class="row-fluid">
+        <div class="span3">
+          <%= f.input :milestone_id, :collection => query.milestones,
+            :label => false, :include_blank => 'No milestone',
+            :required => false, :input_html => { :name => :milestone_id } %>
+        </div>
+        <div class="span6">
+          <% query.labels.each do |label| %>
+            <%= label_button(label, :tag => :label, :for => "label-#{label.id}", :active => query.label_active?(label)) do %>
+              <%= check_box_tag('label_ids[]', label.id, query.label_active?(label), :id => "label-#{label.id}") %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="span3">
+          <div class="btn-group pull-right">
+            <%= link_to 'Show all', project_issues_path, :class => 'btn', :data => { :behavior => 'reset' } %>
+            <%= link_to 'Filter', project_issues_path, :class => 'btn', :data => { :behavior => 'filter' } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
   <table class="table table-stripped gts-table">
     <thead>
       <tr>
-        <th></th>
         <th>ID</th>
         <th>State</th>
         <th>Title</th>
         <th>Author</th>
         <th>Created at</th>
+        <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="gts-tbody-actions">
       <%= render issues %>
     </tbody>
   </table>

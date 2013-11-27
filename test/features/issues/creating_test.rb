@@ -14,9 +14,13 @@ feature 'Create an issue' do
 
     visit routes.new_project_issue_path(project)
 
-    user.create_issue
+    user.create_issue(:title => 'issue #1')
+    user.create_issue(:title => 'issue #2')
+    user.create_issue(:title => 'issue #3')
 
-    page.must_have_content('issue #1')
+    assert page.has_content?('issue #1')
+    assert page.has_content?('issue #2')
+    assert page.has_content?('issue #3')
 
     click_on 'issue #1'
 
@@ -51,5 +55,16 @@ feature 'Create an issue' do
     within('.issue-labels') do
       page.must_have_content 'bug'
     end
+
+    visit routes.project_issues_path(project)
+
+    find('label', :text => 'bug').click
+    click_on 'Filter'
+
+    sleep 0.5
+
+    assert page.has_content?('issue number one')
+    refute page.has_content?('issue #2')
+    refute page.has_content?('issue #3')
   end
 end

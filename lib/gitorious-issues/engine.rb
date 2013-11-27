@@ -16,6 +16,7 @@ module Issues
       [
         '/ui3/js/lib/jquery-ui/ui/jquery.ui.menu',
         '/ui3/js/lib/jquery-ui/ui/jquery.ui.autocomplete',
+        '/ui3/js/lib/jquery-ui/ui/jquery.ui.datepicker',
         '/assets/issues/application'
       ].each do |name|
         path = "#{name}.js"

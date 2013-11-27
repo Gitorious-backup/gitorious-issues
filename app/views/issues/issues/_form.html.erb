@@ -1,3 +1,5 @@
+<% milestones = Issues::Milestone.where(:project_id => project.id).sorted %>
+
 <%= gts_form_for([project, issue]) do |f| %>
   <div class="row-fluid">
     <div class="span8">
@@ -6,7 +8,9 @@
     </div>
     <div class="span4">
       <div class="well gts-issue-sidebar-fields">
-        <%= f.input :state, :as => :select, :collection => %w(new open resolved invalid), :default => 'new', :input_html => { :class => 'input-small' } %>
+        <%= f.input :state, :as => :select, :collection => %w(new open resolved invalid), :default => 'new' %>
+        <hr/>
+        <%= f.input :milestone_id, :as => :select, :collection => milestones %>
         <hr/>
         <%= render 'issues/issues/form/assignee_widget', :issue => issue, :f => f %>
         <hr/>

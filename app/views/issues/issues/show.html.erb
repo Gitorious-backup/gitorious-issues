@@ -22,6 +22,11 @@
         <% end %>
       </div>
     </div>
+    <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
+      <div class="issue-milestone">
+        Milestone: <%= issue.milestone.present? ? issue.milestone.name : 'none' %>
+      </div>
+    </div>
   <% end %>
   <br/>
   <%= tabbable({ 'discussion' => '#discussion' }, :active => 'discussion') do %>

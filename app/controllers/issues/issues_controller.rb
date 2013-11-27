@@ -12,7 +12,7 @@ module Issues
     helper 'issues/application'
     layout 'issues'
 
-    attr_reader :project, :issues, :issue
+    attr_reader :project, :issues, :issue, :query
 
     def index
       render_index
@@ -79,7 +79,8 @@ module Issues
     private
 
     def find_issues
-      @issues = Issue.where(:project_id => project.id).sorted
+      build_query
+      @issues = IssueFilter.call(query)
     end
 
     def find_issue
@@ -92,10 +93,14 @@ module Issues
       @issue.project = project
     end
 
+    def build_query
+      @query = IssueQuery.new(params, project)
+    end
+
     def render_index
       render(
         :template => 'issues/issues/index',
-        :locals => { :project => ProjectPresenter.new(project), :issues => issues, :active => :issues },
+        :locals => { :project => ProjectPresenter.new(project), :issues => issues, :query => query, :active => :issues },
         :layout => pjax_request? ? false : true
       )
     end

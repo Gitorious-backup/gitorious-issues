@@ -8,7 +8,8 @@ module Issues
 
     DEFAULT_STATE = STATE_NEW
 
-    attr_accessible :title, :description, :state, :user_id, :user, :project_id, :project
+    attr_accessible :title, :description, :state, :user_id, :user,
+      :project_id, :project, :milestone_id, :milestone
 
     validates :title, :user, :project, :presence => true
 
