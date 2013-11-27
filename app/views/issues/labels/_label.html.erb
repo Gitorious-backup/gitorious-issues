@@ -1,0 +1,17 @@
+<tr>
+  <td>
+    <%= content_tag(:span, label.name, :class => 'gts-color-box', :style => "background-color: #{label.color}") %>
+  </td>
+  <td>
+    <%= label.name %>
+  </td>
+  <td>
+    <%= label.issues.count %>
+  </td>
+  <td>
+    <%= l(label.created_at) %>
+  </td>
+  <td>
+    <%= link_to 'Delete', [label.project, :issue, label], :class => 'btn btn-mini btn-danger' %>
+  </td>
+</tr>

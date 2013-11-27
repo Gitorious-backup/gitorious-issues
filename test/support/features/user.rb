@@ -23,6 +23,17 @@ module Features
       click_on 'Save'
     end
 
+    def create_label(params = {})
+      visit routes.new_project_issue_label_path(project)
+
+      attributes = params.reverse_merge(:name => 'feature', :color => 'green')
+
+      find('#label_name').set(attributes[:name])
+      find('#label_color').set(attributes[:color])
+
+      click_on 'Save'
+    end
+
   end
 
 end

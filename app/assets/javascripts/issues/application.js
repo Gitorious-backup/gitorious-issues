@@ -7,6 +7,10 @@ gts.app.feature('expandable-textarea', gts.expandableTextarea, {
   elements: ['gts-textarea-expandable']
 });
 
+gts.app.feature('project-issue-labels', gts.projectIssueLabels, {
+  elements: ['gts-project-issue-labels']
+});
+
 gts.app.feature('issue-assignee-autocomplete', gts.issueAssigneeAutocomplete, {
   elements: ['gts-issue-assignee-candidate'],
   depends: ['issue-assignee-candidates']

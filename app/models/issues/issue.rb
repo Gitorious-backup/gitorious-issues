@@ -14,6 +14,7 @@ module Issues
 
     belongs_to :user
     belongs_to :project
+    belongs_to :milestone
 
     has_many :comments, :dependent => :destroy
     has_many :issue_users, :dependent => :destroy
