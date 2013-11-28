@@ -7,12 +7,13 @@ module Issues
     before_filter :find_project
     before_filter :find_issues, :only => [:index]
     before_filter :find_issue,  :only => [:show, :edit, :update]
+    before_filter :find_queries, :only => [:index]
     before_filter :build_issue, :only => [:create]
 
     helper 'issues/application'
     layout 'issues'
 
-    attr_reader :project, :issues, :issue, :query
+    attr_reader :project, :issues, :issue, :query, :public_queries, :private_queries
 
     def index
       render_index
@@ -87,6 +88,19 @@ module Issues
       @issue = Issue.find_by_project_id_and_issue_id!(project.id, params[:issue_id])
     end
 
+    def find_queries
+      find_public_queries
+      find_private_queries
+    end
+
+    def find_public_queries
+      @public_queries = Query.where(:project_id => project.id).public.sorted
+    end
+
+    def find_private_queries
+      @private_queries = Query.where(:project_id => project.id).private.sorted
+    end
+
     def build_issue
       @issue = Issue.new(params[:issue])
       @issue.user = current_user
@@ -100,7 +114,13 @@ module Issues
     def render_index
       render(
         :template => 'issues/issues/index',
-        :locals => { :project => ProjectPresenter.new(project), :issues => issues, :query => query, :active => :issues },
+        :locals => {
+          :project => ProjectPresenter.new(project),
+          :issues => issues,
+          :query => query,
+          :public_queries => public_queries,
+          :private_queries => private_queries,
+          :active => :issues },
         :layout => pjax_request? ? false : true
       )
     end

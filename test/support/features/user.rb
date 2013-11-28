@@ -20,6 +20,14 @@ module Features
       visit routes.new_project_issue_path(project)
       find('#issue_title').set(attributes[:title])
       find('#issue_description').set(attributes[:description])
+      if params[:labels]
+        params[:labels].each do |label|
+          within('.issue-label-widget') do
+            find('#issue_label').set(label)
+            click_on 'Add'
+          end
+        end
+      end
       click_on 'Save'
     end
 
@@ -32,6 +40,10 @@ module Features
       find('#label_color').set(attributes[:color])
 
       click_on 'Save'
+    end
+
+    def check_filter(name)
+      find('label', :text => name).click
     end
 
   end

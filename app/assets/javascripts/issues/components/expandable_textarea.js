@@ -1,7 +1,4 @@
 this.gts.expandableTextarea = (function() {
-  var initialized = false;
-
-  if (initialized) return;
 
   return function(textarea) {
     $el = $(textarea);
@@ -14,8 +11,6 @@ this.gts.expandableTextarea = (function() {
       if (this.value) return;
       $(this).addClass('gts-textarea-expandable');
     });
-
-    initialized = true;
   };
 
 }());

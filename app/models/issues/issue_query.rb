@@ -11,6 +11,10 @@ module Issues
 
     attr_reader :project
 
+    def self.build(query)
+      new(JSON.parse(query.data), query.project)
+    end
+
     def initialize(params, project)
       super(params)
       @project = project
@@ -26,6 +30,10 @@ module Issues
 
     def label_active?(label)
       label_ids.include?(label.id)
+    end
+
+    def build
+      Issues::Query.new(:project => project, :data => to_hash.to_json)
     end
 
     def persisted?

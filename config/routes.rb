@@ -7,15 +7,19 @@ Issues::Engine.routes.draw do
       put 'labels' => 'labels#update'
       get 'labels/:id' => 'labels#show', :as => :project_issue_label
       delete 'labels/:id' => 'labels#destroy'
-    end
 
-    scope 'issues' do
       get 'milestones' => 'milestones#index', :as => :project_issue_milestones
       get 'milestones/new' => 'milestones#new', :as => :new_project_issue_milestone
       post 'milestones' => 'milestones#create'
       put 'milestones' => 'milestones#update'
       get 'milestones/:id' => 'milestones#show', :as => :project_issue_milestone
       delete 'milestones/:id' => 'milestones#destroy'
+
+      get 'queries' => 'queries#index', :as => :project_issue_queries
+      post 'queries' => 'queries#create'
+      put 'queries' => 'queries#update'
+      get 'queries/:id' => 'queries#show', :as => :project_issue_query
+      delete 'queries/:id' => 'queries#destroy'
     end
 
     get 'issues' => 'issues#index', :as => :project_issues

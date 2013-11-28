@@ -8,28 +8,24 @@
     <%= project.title %>'s issues
   </h2>
   <div class="well">
-    <%= simple_form_for(query, :url => project_issues_path, :method => :get, :html => { :class => 'form-horizontal gts-issue-filters' }) do |f| %>
+    <%= render 'issues/issues/filters', :query => query %>
+    <hr/>
+    <div class="gts-saved-issue-queries">
       <div class="row-fluid">
-        <div class="span3">
-          <%= f.input :milestone_id, :collection => query.milestones,
-            :label => false, :include_blank => 'No milestone',
-            :required => false, :input_html => { :name => :milestone_id } %>
-        </div>
         <div class="span6">
-          <% query.labels.each do |label| %>
-            <%= label_button(label, :tag => :label, :for => "label-#{label.id}", :active => query.label_active?(label)) do %>
-              <%= check_box_tag('label_ids[]', label.id, query.label_active?(label), :id => "label-#{label.id}") %>
-            <% end %>
-          <% end %>
+          <h4>Save current query</h4>
+          <%= render 'issues/queries/form', :query => query %>
         </div>
         <div class="span3">
-          <div class="btn-group pull-right">
-            <%= link_to 'Show all', project_issues_path, :class => 'btn', :data => { :behavior => 'reset' } %>
-            <%= link_to 'Filter', project_issues_path, :class => 'btn', :data => { :behavior => 'filter' } %>
-          </div>
+          <h4>Public queries</h4>
+          <%= render 'issues/queries/queries', :queries => public_queries %>
+        </div>
+        <div class="span3">
+          <h4>Your queries</h4>
+          <%= render 'issues/queries/queries', :queries => private_queries %>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
   <table class="table table-stripped gts-table">
     <thead>

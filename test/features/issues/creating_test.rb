@@ -14,7 +14,7 @@ feature 'Create an issue' do
 
     visit routes.new_project_issue_path(project)
 
-    user.create_issue(:title => 'issue #1')
+    user.create_issue(:title => 'issue #1', :labels => %w(bug))
     user.create_issue(:title => 'issue #2')
     user.create_issue(:title => 'issue #3')
 
@@ -36,11 +36,6 @@ feature 'Create an issue' do
       click_on 'Assign'
     end
 
-    within('.issue-label-widget') do
-      find('#issue_label').set('bug')
-      click_on 'Add'
-    end
-
     click_on 'Save'
 
     page.must_have_content('Issue updated successfuly')
@@ -58,7 +53,7 @@ feature 'Create an issue' do
 
     visit routes.project_issues_path(project)
 
-    find('label', :text => 'bug').click
+    user.check_filter('bug')
     click_on 'Filter'
 
     sleep 0.5

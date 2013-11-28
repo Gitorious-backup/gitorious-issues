@@ -1,0 +1,93 @@
+module Issues
+
+  class QueriesController < ::ApplicationController
+    include ProjectFilters
+
+    before_filter :login_required, :only => [:create, :edit, :update]
+    before_filter :find_project
+    before_filter :find_query, :only => [:show, :edit, :update]
+    before_filter :find_queries, :only => [:show]
+
+    helper 'issues/application'
+    layout 'issues'
+
+    attr_reader :project, :issue, :query, :queries, :public_queries, :private_queries
+
+    def create
+      query = Query.new(params[:query])
+      query.user = current_user
+      query.project = project
+
+      if query.save
+        flash[:notice] = 'Custom query was saved'
+        redirect_to [project, :issue, query]
+      else
+        render_form(query)
+      end
+    end
+
+    def show
+      issue_query = IssueQuery.build(query)
+      issues      = IssueFilter.call(IssueQuery.build(query))
+
+      render(
+        :template => 'issues/issues/index',
+        :locals => {
+          :project => ProjectPresenter.new(project),
+          :issues => issues,
+          :query => issue_query,
+          :public_queries => public_queries,
+          :private_queries => private_queries,
+          :active => :issues },
+        :layout => pjax_request? ? false : true
+      )
+    end
+
+    def edit
+      render_form(query)
+    end
+
+    def update
+      if query.update_attributes(params[:query])
+        flash[:notice] = 'Your query was updated'
+        redirect_to [project, issue]
+      else
+        render_form(query)
+      end
+    end
+
+    private
+
+    def find_query
+      @query = Query.find(params[:id])
+    end
+
+    def find_public_queries
+      @public_queries = Query.where(:project_id => project.id).public.sorted
+    end
+
+    def find_private_queries
+      @private_queries = Query.where(:project_id => project.id).private.sorted
+    end
+
+    def find_queries
+      find_public_queries
+      find_private_queries
+    end
+
+    def render_form(query)
+      render(
+        :template => 'issues/queries/form',
+        :locals => {
+          :query => IssueQuery.build(query),
+          :issue => issue,
+          :project => ProjectPresenter.new(project),
+          :active => :issues
+        },
+        :layout => pjax_request? ? false : true
+      )
+    end
+
+  end
+
+end
