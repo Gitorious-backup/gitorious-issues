@@ -12,7 +12,7 @@
           <i class="icon-remove"></i>
           <%= user.login %>
         </button>
-        <input type="hidden" name="assignee_ids[]" value="<%= user.id %>"/>
+        <input type="hidden" name="issue[assignee_ids][]" value="<%= user.id %>"/>
       </li>
     <% end %>
   </ul>

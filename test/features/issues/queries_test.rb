@@ -1,6 +1,6 @@
 require "test_helper"
 
-feature 'Issue queries' do
+feature 'Project Issues Tab' do
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
@@ -8,8 +8,9 @@ feature 'Issue queries' do
   background do
     user.sign_in
 
+    Issues::Issue.destroy_all
+
     labels = %w(bug feature task)
-    labels.each { |label| user.create_label(:name => label) }
 
     3.times { |i| user.create_issue(:title => "issue ##{i+1}", :labels => [labels[i]]) }
   end

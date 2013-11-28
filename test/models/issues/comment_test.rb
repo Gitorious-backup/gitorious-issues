@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe Issues::Comment do
-  fixtures :users, :projects
+  fixtures :users, :projects, 'issues/issues'
 
   describe 'validations' do
     it 'has errors when issue is blank' do
@@ -29,7 +29,7 @@ describe Issues::Comment do
   describe '#create' do
     let(:user)    { users(:johan) }
     let(:project) { projects(:johans) }
-    let(:issue)   { Issues::Issue.create!(:user => user, :project => project, :title => 'test') }
+    let(:issue)   { issues_issues(:one) }
 
     it 'persists comment when it has valid attributes' do
       comment = Issues::Comment.create(

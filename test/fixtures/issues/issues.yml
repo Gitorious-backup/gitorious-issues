@@ -1,0 +1,23 @@
+one:
+  id: 1
+  title: "issue #1"
+  description: "this is issue number one"
+  user_id: 1
+  project_id: 1
+  issue_id: 1
+
+two:
+  id: 2
+  title: "issue #2"
+  description: "this is issue number two"
+  user_id: 1
+  project_id: 1
+  issue_id: 2
+
+three:
+  id: 3
+  title: "issue #3"
+  description: "this is issue number three"
+  user_id: 1
+  project_id: 2
+  issue_id: 3

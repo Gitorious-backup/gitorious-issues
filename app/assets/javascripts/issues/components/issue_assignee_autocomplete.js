@@ -20,7 +20,7 @@ this.gts.issueAssigneeAutocomplete = (function() {
       );
 
       $li.append(
-        $('<input type="hidden" name="assignee_ids[]"/>').val(value)
+        $('<input type="hidden" name="issue[assignee_ids][]"/>').val(value)
       );
 
       return $li;

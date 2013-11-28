@@ -16,6 +16,8 @@ module Issues
     private
 
     def filter!
+      @issues = issues.where(:project_id => query.project.id)
+
       if query.milestone_id.present?
         @issues = issues.where(:milestone_id => query.milestone_id)
       end

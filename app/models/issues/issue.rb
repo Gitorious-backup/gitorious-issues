@@ -1,5 +1,3 @@
-require 'gitorious/authorization'
-
 module Issues
 
   class Issue < ActiveRecord::Base
@@ -11,9 +9,10 @@ module Issues
     DEFAULT_STATE = STATE_NEW
 
     attr_accessible :title, :description, :state, :user_id, :user,
-      :project_id, :project, :milestone_id, :milestone
+      :project_id, :project, :milestone_id, :milestone,
+      :assignee_ids, :label_ids
 
-    validates :title, :user, :project, :presence => true
+    validates :title, :user, :project, :issue_id, :presence => true
 
     belongs_to :user
     belongs_to :project
@@ -21,12 +20,12 @@ module Issues
 
     has_many :comments, :dependent => :destroy
     has_many :issue_users, :dependent => :destroy
-    has_many :assignees, :through => :issue_users, :class_name => 'User', :source => :user
+    has_many :assignees, :through => :issue_users, :class_name => '::User', :source => :user
 
     has_many :issue_labels, :dependent => :destroy
     has_many :labels, :through => :issue_labels
 
-    before_create :set_issue_id, :set_default_state
+    before_validation :set_issue_id, :on => :create
 
     def self.sorted
       order('created_at DESC')
@@ -48,14 +47,6 @@ module Issues
       Label.where(:project_id => project_id) - labels
     end
 
-    def update_assignees(ids)
-      update_collection(ids, :assignees, User)
-    end
-
-    def update_labels(ids)
-      update_collection(ids, :labels, Label)
-    end
-
     def creator?(user)
       self.user == user
     end
@@ -63,32 +54,11 @@ module Issues
     private
 
     def set_issue_id
-      # FIXME: this is a very naive and unstable way
       self.issue_id = next_issue_id
     end
 
     def next_issue_id
       (Issue.where(:project_id => project_id).maximum(:issue_id) || 0) + 1
-    end
-
-    def set_default_state
-      self.state ||= DEFAULT_STATE
-    end
-
-    def update_collection(ids, name, model)
-      collection = public_send(name)
-      to_assign  = ids.map { |id| model.find(id) }
-      to_remove  = collection - to_assign
-
-      to_assign.each do |member|
-        collection << member unless collection.include?(member)
-      end
-
-      to_remove.each do |member|
-        collection.delete(member)
-      end
-
-      self
     end
 
   end

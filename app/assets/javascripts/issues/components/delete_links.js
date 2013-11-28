@@ -6,7 +6,8 @@ this.gts.deleteLinks = (function() {
     $table.find('a.btn-danger').on('ajax:success', function(e) {
       e.preventDefault();
       var $el = $(this);
-      $el.parents('tr').fadeOut('fast');
+      $tr = $el.parents('tr');
+      $tr.fadeOut('fast', function() { $tr.remove(); });
     });
 
     $table.find('a.btn-danger').on('click', function(e) {

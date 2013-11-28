@@ -1,6 +1,8 @@
 require "test_helper"
 
-feature 'Managing project issue labels' do
+feature 'Project Issues Tab' do
+  fixtures 'issues/labels'
+
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
@@ -10,24 +12,22 @@ feature 'Managing project issue labels' do
   end
 
   scenario 'creating a new label', :js => true do
-    user.create_label
+    user.create_label(:name => 'question')
 
     within('.gts-project-issue-labels') do
-      assert page.has_content?('feature')
+      assert page.has_content?('question')
     end
   end
 
   scenario 'deleting a label', :js => true do
-    user.create_label
-
     visit routes.project_issues_path(project)
 
     click_on 'Manage labels'
 
-    within('.gts-project-issue-labels') do
+    within('.gts-project-issue-labels tbody tr:first-child') do
       click_on 'Delete'
       sleep 0.5
-      refute page.has_content?('feature')
+      refute page.has_content?('bug')
     end
   end
 end

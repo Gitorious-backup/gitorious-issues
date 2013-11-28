@@ -26,13 +26,9 @@ module Issues
     end
 
     def create
-      assignee_ids = params.fetch(:assignee_ids, [])
-      label_ids    = params.fetch(:label_ids, [])
+      issue = UseCases::CreateIssue.call(:user => current_user, :project => project, :params => params[:issue])
 
-      if issue.save
-        issue.update_assignees(assignee_ids)
-        issue.update_labels(label_ids)
-
+      if issue.persisted?
         if pjax_request?
           render_index
         else
@@ -61,13 +57,7 @@ module Issues
     end
 
     def update
-      assignee_ids = params.fetch(:assignee_ids, [])
-      label_ids    = params.fetch(:label_ids, [])
-
-      if issue.update_attributes(params[:issue])
-        issue.update_assignees(assignee_ids)
-        issue.update_labels(label_ids)
-
+      if UseCases::UpdateIssue.call(:issue => issue, :params => params[:issue]).persisted?
         if pjax_request?
           render_index
         else

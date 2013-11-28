@@ -23,7 +23,7 @@ this.gts.issueLabelAutocomplete = (function() {
       );
 
       $li.append(
-        $('<input type="hidden" name="label_ids[]"/>').val(value)
+        $('<input type="hidden" name="issue[label_ids][]"/>').val(value)
       );
 
       return $li;

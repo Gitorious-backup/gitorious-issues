@@ -1,6 +1,6 @@
 require "test_helper"
 
-feature 'Managing project milestones' do
+feature 'Project Issues Tab' do
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }

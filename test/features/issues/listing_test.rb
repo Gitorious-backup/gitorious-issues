@@ -1,14 +1,14 @@
 require "test_helper"
 
-feature 'Listing issues' do
+feature 'Project Issues Tab' do
+  fixtures 'issues/issues',  'issues/labels', 'issues/issue_labels'
+
   let(:user)    { Features::User.new(users(:johan), self) }
   let(:project) { projects(:johans) }
   let(:routes)  { Issues::Engine.routes.url_helpers }
 
   scenario 'visting project issues page as a project admin', :js => true do
     user.sign_in
-
-    3.times { |i| user.create_issue(:title => "issue ##{i}") }
 
     visit routes.project_issues_path(project)
 
@@ -17,34 +17,25 @@ feature 'Listing issues' do
     assert_content page, 'issue #2'
     refute_content page, 'issue #3'
 
-    click_on 'issue #1'
+    user.check_filter('bug')
+    click_on 'Filter'
 
-    find('#comment_body').set('oh hai')
-    click_on('Save')
+    sleep 0.5
 
-    page.must_have_content 'Comment added successfuly'
-    page.must_have_content 'oh hai'
-
-    within(".gts-comment-list") do
-      click_on 'Edit'
-    end
-
-    find('#comment_body').set('oh hai again')
-    click_on 'Save'
-
-    page.must_have_content 'Your comment was updated'
-    page.must_have_content 'oh hai again'
+    assert page.has_content?('issue #1')
+    refute page.has_content?('issue #2')
+    refute page.has_content?('issue #3')
   end
 
   scenario 'deleting an issue', :js => true do
     user.sign_in
 
-    user.create_issue(:title => 'temporary')
+    visit routes.project_issues_path(project)
 
-    within('.gts-project-issues') do
+    within('.gts-project-issues tbody tr:first-child') do
       click_on 'Delete'
       sleep 0.5
-      refute page.has_content?('temporary')
+      refute page.has_content?('issue #3')
     end
   end
 
