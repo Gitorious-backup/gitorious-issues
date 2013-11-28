@@ -1,9 +1,9 @@
 module Issues
 
-  class QueriesController < ::ApplicationController
-    include ProjectFilters
+  class QueriesController < Issues::ApplicationController
+    include IssueAuthorization
 
-    before_filter :login_required, :only => [:create, :edit, :update]
+    before_filter :login_required, :except => [:show]
     before_filter :find_project
     before_filter :find_query, :only => [:show, :edit, :update]
     before_filter :find_queries, :only => [:show]

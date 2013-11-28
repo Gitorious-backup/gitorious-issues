@@ -1,7 +1,9 @@
 <div id="gts-pjax-container">
   <div class="gts-pjax pull-right">
-    <%= link_to 'Manage labels', project_issue_labels_path(project), :class => 'btn' %>
-    <%= link_to 'Manage milestones', project_issue_milestones_path(project), :class => 'btn' %>
+    <% if admin?(current_user, project) %>
+      <%= link_to 'Manage labels', project_issue_labels_path(project), :class => 'btn' %>
+      <%= link_to 'Manage milestones', project_issue_milestones_path(project), :class => 'btn' %>
+    <% end %>
     <%= link_to 'Add issue', new_project_issue_path(project), :class => 'btn btn-primary' %>
   </div>
   <h2 class="gts-legend">
@@ -9,22 +11,24 @@
   </h2>
   <div class="well">
     <%= render 'issues/issues/filters', :query => query %>
-    <hr/>
-    <div class="gts-saved-issue-queries">
-      <div class="row-fluid">
-        <div class="span6">
-          <h4>Save current query</h4>
-          <%= render 'issues/queries/form', :query => query %>
+    <% if logged_in? %>
+      <hr/>
+      <div class="gts-saved-issue-queries">
+        <div class="row-fluid">
+          <div class="span6">
+            <h4>Save current query</h4>
+            <%= render 'issues/queries/form', :query => query %>
+          </div>
+          <div class="span3">
+            <h4>Public queries</h4>
+            <%= render 'issues/queries/queries', :queries => public_queries %>
+          </div>
+          <div class="span3">
+            <h4>Your queries</h4>
+            <%= render 'issues/queries/queries', :queries => private_queries %>
+          </div>
         </div>
-        <div class="span3">
-          <h4>Public queries</h4>
-          <%= render 'issues/queries/queries', :queries => public_queries %>
-        </div>
-        <div class="span3">
-          <h4>Your queries</h4>
-          <%= render 'issues/queries/queries', :queries => private_queries %>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
   <table class="table table-stripped gts-table">

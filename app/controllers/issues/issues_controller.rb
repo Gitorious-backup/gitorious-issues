@@ -1,7 +1,7 @@
 module Issues
 
-  class IssuesController < ::ApplicationController
-    include ProjectFilters
+  class IssuesController < Issues::ApplicationController
+    include IssueAuthorization
 
     before_filter :login_required, :except => [:index, :show]
     before_filter :find_project
@@ -9,11 +9,13 @@ module Issues
     before_filter :find_issue,  :only => [:show, :edit, :update]
     before_filter :find_queries, :only => [:index]
     before_filter :build_issue, :only => [:create]
+    before_filter :authorize, :only => [:edit, :update, :destroy]
 
     helper 'issues/application'
     layout 'issues'
 
     attr_reader :project, :issues, :issue, :query, :public_queries, :private_queries
+    helper_method :project
 
     def index
       render_index

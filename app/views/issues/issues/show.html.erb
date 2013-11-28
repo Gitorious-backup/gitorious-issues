@@ -1,8 +1,10 @@
 <div id="gts-pjax-container">
   <%= pull_box issue.title do %>
-    <div class="btn-group gts-pjax">
-      <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id), :class => 'btn' %>
-    </div>
+    <% if can_edit? %>
+      <div class="btn-group gts-pjax">
+        <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id), :class => 'btn' %>
+      </div>
+    <% end %>
     <div class="gts-pullbox-content-meta gts-pullbox-content-meta-top">
       <div class="issue-assignees">
         Assigned users:

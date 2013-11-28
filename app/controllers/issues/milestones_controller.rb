@@ -1,10 +1,9 @@
 module Issues
 
-  class MilestonesController < ::ApplicationController
-    include ProjectFilters
-
-    before_filter :login_required, :except => [:index, :show]
+  class MilestonesController < Issues::ApplicationController
+    before_filter :login_required
     before_filter :find_project
+    before_filter :require_admin
     before_filter :find_milestone, :only => [:edit, :update, :destroy]
     before_filter :find_milestones, :only => [:index]
 
@@ -36,6 +35,7 @@ module Issues
       milestone.save
 
       if milestone.persisted?
+        flash[:notice] = 'Milestone added successfuly'
         redirect_to [project, :issue, :milestones]
       else
         render_form(milestone)

@@ -1,3 +1,5 @@
+require 'gitorious/authorization'
+
 module Issues
 
   class Issue < ActiveRecord::Base
@@ -52,6 +54,10 @@ module Issues
 
     def update_labels(ids)
       update_collection(ids, :labels, Label)
+    end
+
+    def creator?(user)
+      self.user == user
     end
 
     private

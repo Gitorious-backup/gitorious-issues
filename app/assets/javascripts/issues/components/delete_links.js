@@ -1,4 +1,4 @@
-this.gts.projectIssueLabels = (function() {
+this.gts.deleteLinks = (function() {
 
   return function(table) {
     var $table = $(table);

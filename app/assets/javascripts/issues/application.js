@@ -7,8 +7,8 @@ gts.app.feature('expandable-textarea', gts.expandableTextarea, {
   elements: ['gts-textarea-expandable']
 });
 
-gts.app.feature('project-issue-labels', gts.projectIssueLabels, {
-  elements: ['gts-project-issue-labels']
+gts.app.feature('delete-links', gts.deleteLinks, {
+  elements: ['gts-delete-links']
 });
 
 gts.app.feature('issue-assignee-autocomplete', gts.issueAssigneeAutocomplete, {

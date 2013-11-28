@@ -42,6 +42,16 @@ module Features
       click_on 'Save'
     end
 
+    def create_milestone(params = {})
+      visit routes.new_project_issue_milestone_path(project)
+
+      attributes = params.reverse_merge(:name => 'v1.0')
+
+      find('#milestone_name').set(attributes[:name])
+
+      click_on 'Save'
+    end
+
     def check_filter(name)
       find('label', :text => name).click
     end

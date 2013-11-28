@@ -15,7 +15,9 @@
     <%= time_ago(issue.created_at) %>
   </td>
   <td>
-    <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id),
-      :class => 'btn' %>
+    <% if can_edit?(issue) %>
+      <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id),
+        :class => 'btn' %>
+    <% end %>
   </td>
 </tr>

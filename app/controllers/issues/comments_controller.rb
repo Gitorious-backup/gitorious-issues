@@ -1,8 +1,6 @@
 module Issues
 
-  class CommentsController < ::ApplicationController
-    include ProjectFilters
-
+  class CommentsController < Issues::ApplicationController
     before_filter :login_required, :only => [:create, :edit, :update]
     before_filter :find_project
     before_filter :find_issue

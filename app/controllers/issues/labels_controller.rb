@@ -1,10 +1,9 @@
 module Issues
 
-  class LabelsController < ::ApplicationController
-    include ProjectFilters
-
-    before_filter :login_required, :except => [:index, :show]
+  class LabelsController < Issues::ApplicationController
+    before_filter :login_required
     before_filter :find_project
+    before_filter :require_admin
     before_filter :find_label, :only => [:edit, :update, :destroy]
     before_filter :find_labels, :only => [:index]
 
