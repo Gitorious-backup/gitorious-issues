@@ -6,7 +6,7 @@ module Issues
     before_filter :login_required, :except => [:index, :show]
     before_filter :find_project
     before_filter :find_issues, :only => [:index]
-    before_filter :find_issue,  :only => [:show, :edit, :update]
+    before_filter :find_issue,  :only => [:show, :edit, :update, :destroy]
     before_filter :find_queries, :only => [:index]
     before_filter :build_issue, :only => [:create]
     before_filter :authorize, :only => [:edit, :update, :destroy]
@@ -77,6 +77,11 @@ module Issues
       else
         render_form(issue)
       end
+    end
+
+    def destroy
+      issue.destroy
+      head :ok
     end
 
     private

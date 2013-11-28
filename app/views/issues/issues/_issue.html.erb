@@ -18,6 +18,8 @@
     <% if can_edit?(issue) %>
       <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id),
         :class => 'btn' %>
+      <%= link_to 'Delete', project_issue_path(issue.project, :issue_id => issue.issue_id),
+        :class => 'btn btn-danger' %>
     <% end %>
   </td>
 </tr>

@@ -28,6 +28,7 @@ Issues::Engine.routes.draw do
     get 'issues/:issue_id/edit' => 'issues#edit', :as => :edit_project_issue
     post 'issues' => 'issues#create'
     put 'issues/:issue_id' => 'issues#update'
+    delete 'issues/:issue_id' => 'issues#destroy'
 
     scope 'issues/:issue_id' do
       get 'comments' => 'comments#index', :as => :project_issue_comments

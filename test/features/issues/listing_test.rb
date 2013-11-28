@@ -36,6 +36,18 @@ feature 'Listing issues' do
     page.must_have_content 'oh hai again'
   end
 
+  scenario 'deleting an issue', :js => true do
+    user.sign_in
+
+    user.create_issue(:title => 'temporary')
+
+    within('.gts-project-issues') do
+      click_on 'Delete'
+      sleep 0.5
+      refute page.has_content?('temporary')
+    end
+  end
+
   scenario 'visiting project issues page as a normal user' do
     visit routes.project_issues_path(project)
 
