@@ -12,6 +12,7 @@
     <%= l(milestone.created_at) %>
   </td>
   <td>
-    <%= link_to 'Delete', [milestone.project, :issue, milestone], :class => 'btn btn-mini btn-danger' %>
+    <%= link_to 'Edit', [:edit, milestone.project, :issue, milestone], :class => 'btn' %>
+    <%= link_to 'Delete', [milestone.project, :issue, milestone], :class => 'btn btn-danger' %>
   </td>
 </tr>

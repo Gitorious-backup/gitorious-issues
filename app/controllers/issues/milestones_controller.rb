@@ -29,6 +29,15 @@ module Issues
       render_form(milestone)
     end
 
+    def update
+      if milestone.update_attributes(params[:milestone])
+        flash[:notice] = 'Milestone updated successfuly'
+        redirect_to [project, :issue, :milestones]
+      else
+        render_form(milestone)
+      end
+    end
+
     def create
       milestone = Issues::Milestone.new(params[:milestone])
       milestone.project = project

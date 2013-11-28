@@ -16,6 +16,20 @@ feature 'Managing project milestones' do
     page.must_have_content 'v1.0'
   end
 
+  scenario 'updating a milestone', :js => true do
+    user.create_milestone(:name => 'v1.0')
+
+    within('.gts-project-issue-milestones') do
+      click_on 'Edit'
+    end
+
+    find('#milestone_name').set('v1.1')
+    click_on 'Save'
+
+    page.must_have_content 'Milestone updated successfuly'
+    page.must_have_content 'v1.1'
+  end
+
   scenario 'deleting a milestone', :js => true do
     user.create_milestone(:name => 'v1.0')
 

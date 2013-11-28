@@ -11,8 +11,9 @@ Issues::Engine.routes.draw do
       get 'milestones' => 'milestones#index', :as => :project_issue_milestones
       get 'milestones/new' => 'milestones#new', :as => :new_project_issue_milestone
       post 'milestones' => 'milestones#create'
-      put 'milestones' => 'milestones#update'
       get 'milestones/:id' => 'milestones#show', :as => :project_issue_milestone
+      get 'milestones/:id/edit' => 'milestones#edit', :as => :edit_project_issue_milestone
+      put 'milestones/:id' => 'milestones#update'
       delete 'milestones/:id' => 'milestones#destroy'
 
       get 'queries' => 'queries#index', :as => :project_issue_queries
