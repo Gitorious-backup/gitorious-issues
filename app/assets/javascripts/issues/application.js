@@ -25,6 +25,6 @@ gts.app.feature('issue-filters', gts.issueFilters, {
   elements: ['gts-issue-filters']
 });
 
-$(function() {
-  $('.gts-date-picker').datepicker();
+gts.app.feature('date-picker', gts.datePicker, {
+  elements: ['gts-date-picker']
 });
