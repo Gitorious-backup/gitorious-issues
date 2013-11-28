@@ -64,10 +64,10 @@ module Issues
 
     def set_issue_id
       # FIXME: this is a very naive and unstable way
-      self.issue_id = last_issue_id + 1
+      self.issue_id = next_issue_id
     end
 
-    def last_issue_id
+    def next_issue_id
       (Issue.where(:project_id => project_id).maximum(:issue_id) || 0) + 1
     end
 
