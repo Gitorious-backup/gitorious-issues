@@ -7,7 +7,7 @@
       <%= f.input :description, :placeholder => 'Description', :label => false %>
     </div>
     <div class="span4">
-      <div class="well gts-issue-sidebar-fields">
+      <div class="well gts-well-lite gts-issue-sidebar-fields">
         <%= f.input :state, :as => :select, :collection => %w(new open resolved invalid), :default => 'new' %>
         <hr/>
         <%= f.input :milestone_id, :as => :select, :collection => milestones %>

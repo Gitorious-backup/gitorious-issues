@@ -9,7 +9,7 @@ this.gts.issueFilters = (function() {
       $btn.toggleClass('btn-inactive', !$chk.prop('checked'));
     });
 
-    $form.on('click', '.btn-group .btn', function(e) {
+    $form.on('click', '[data-behavior=submit-buttons] a', function(e) {
       e.preventDefault();
 
       var $btn = $(this);

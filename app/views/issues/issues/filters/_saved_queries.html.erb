@@ -1,0 +1,10 @@
+<%= pull_box title, :id => "#{id}-issue-queries", :opened => false do %>
+  <div class="btn-group pull-box-header-buttons">
+    <%= link_to '#', 'data-gts-toggle' => "#saved-#{id}-issue-queries", 'data-gts-toggle-type' => 'pullbox', :class => 'btn' do %>
+      <span class="caret"></span>
+    <% end %>
+  </div>
+  <div id="saved-<%= id %>-issue-queries" class="ui-helper-hidden">
+    <%= render 'issues/queries/queries', :queries => queries %>
+  </div>
+<% end %>

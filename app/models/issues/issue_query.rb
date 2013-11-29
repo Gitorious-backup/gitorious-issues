@@ -5,19 +5,25 @@ module Issues
     extend ActiveModel::Naming
     include ActiveModel::Conversion
 
+    attribute :name,         String
     attribute :project_id,   String, :strict => true
     attribute :milestone_id, Integer
+    attribute :states,       Array[String]
     attribute :label_ids,    Array[Integer]
 
     attr_reader :project
 
     def self.build(query)
-      new(JSON.parse(query.data), query.project)
+      new(JSON.parse(query.data).update(:name => query.name), query.project)
     end
 
     def initialize(params, project)
       super(params)
       @project = project
+    end
+
+    def active?
+      [:milestone_id, :states, :label_ids].map { |name| attributes[name] }.any?(&:present?)
     end
 
     def milestones
@@ -30,6 +36,10 @@ module Issues
 
     def label_active?(label)
       label_ids.include?(label.id)
+    end
+
+    def state_active?(state)
+      states.include?(state)
     end
 
     def build

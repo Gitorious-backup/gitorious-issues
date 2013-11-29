@@ -53,7 +53,12 @@ module Features
     end
 
     def check_filter(name)
+      open_pull_box('issue-filters')
       find('label', :text => name).click
+    end
+
+    def open_pull_box(id)
+      find("##{id} .pull-box-header-buttons a").click
     end
 
   end

@@ -37,9 +37,28 @@
   width: 99%
   height: 150px
 
+.pull-box-container
+  &.closed
+    border: none
+
+    .pull-box-header
+      border-radius: 4px
+      border: 1px solid #e1e1e8
+
+    .pull-box-content
+      > .btn-group
+        .btn
+          border-radius: 0 4px 4px 0
+
+    .gts-content
+      display: none
+
 /* ~ gitorious.css overrides */
 
 /* globally reusable stuff */
+
+.gts-content
+  padding: 20px
 
 .gts-color-box
   display: block
@@ -53,6 +72,7 @@
 
 .form-horizontal
   .gts-issue-sidebar-fields
+
     select
       width: 60%
 
@@ -104,8 +124,24 @@
 
   &.gts-pullbox-content-meta-top
     border-bottom: 1px solid #f4f4f4
+
   &.gts-pullbox-content-meta-bottom
     border-top: 1px solid #f4f4f4
+
+$active-issue-color: #74a7d6
+
+.pull-box-container
+  &.active-issue-query
+    border-color: $active-issue-color
+
+    .pull-box-header-buttons
+      .btn
+        border-color: $active-issue-color
+        background-color: #95c8f7
+
+    .pull-box-header
+      background-color: #95c8f7
+      border-color: $active-issue-color
 
 label.btn-label, button.btn-label
   color: #fff
@@ -125,8 +161,17 @@ label.btn-label, button.btn-label
 .gts-issue-filters
   margin-bottom: 0
 
-  .control-group
-    margin-bottom: 0
+  .issue-labels, .issue-states
+    margin: -5px 0
+    list-style: none
+
+    li
+      display: inline-block
+      margin: 5px 5px 0 0
+
+.issue-states
+  label
+    color: #000
 
 .gts-saved-issue-queries
   h4

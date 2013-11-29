@@ -28,3 +28,18 @@ gts.app.feature('issue-filters', gts.issueFilters, {
 gts.app.feature('date-picker', gts.datePicker, {
   elements: ['gts-date-picker']
 });
+
+$(function() {
+  $('body').on('click', 'a[data-gts-toggle]', function(e) {
+    e.preventDefault();
+
+    var $this = $(this);
+    var $el = $($this.data('gts-toggle'));
+
+    $el.toggle();
+
+    if ($this.data('gts-toggle-type') == 'pullbox') {
+      $el.parents('.pull-box-container').toggleClass('closed');
+    }
+  });
+});

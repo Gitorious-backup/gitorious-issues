@@ -9,28 +9,7 @@
   <h2 class="gts-legend">
     <%= project.title %>'s issues
   </h2>
-  <div class="well">
-    <%= render 'issues/issues/filters', :query => query %>
-    <% if logged_in? %>
-      <hr/>
-      <div class="gts-saved-issue-queries">
-        <div class="row-fluid">
-          <div class="span6">
-            <h4>Save current query</h4>
-            <%= render 'issues/queries/form', :query => query %>
-          </div>
-          <div class="span3">
-            <h4>Public queries</h4>
-            <%= render 'issues/queries/queries', :queries => public_queries %>
-          </div>
-          <div class="span3">
-            <h4>Your queries</h4>
-            <%= render 'issues/queries/queries', :queries => private_queries %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'issues/issues/filters', :query => query, :public_queries => public_queries, :private_queries => private_queries %>
   <table class="table table-stripped gts-project-issues">
     <thead>
       <tr>
