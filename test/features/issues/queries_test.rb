@@ -32,8 +32,6 @@ feature 'Project Issues Tab' do
 
     page.must_have_content 'Custom query was saved'
 
-    user.open_pull_box('private-issue-queries')
-
     within('#private-issue-queries') do
       click_on 'features'
     end

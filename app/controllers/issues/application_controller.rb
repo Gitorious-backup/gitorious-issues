@@ -1,4 +1,5 @@
 module Issues
+  AuthorizationError = Class.new(StandardError)
 
   module IssueAuthorization
     def self.included(controller)
@@ -7,10 +8,7 @@ module Issues
     end
 
     def authorize
-      unless can_edit?
-        flash[:warning] = 'You are not authorized to access this page'
-        redirect_to(main_app.root_path) and return
-      end
+      raise AuthorizationError unless can_edit?
     end
 
     def can_edit?(issue = issue)
@@ -24,6 +22,15 @@ module Issues
 
   class ApplicationController < ::ApplicationController
     include ProjectFilters
+
+    rescue_from Issues::AuthorizationError, :with => :not_authorized
+
+    private
+
+    def not_authorized
+      flash[:warning] = 'You are not authorized to access this page'
+      redirect_to(main_app.root_path) and return
+    end
   end
 
 end

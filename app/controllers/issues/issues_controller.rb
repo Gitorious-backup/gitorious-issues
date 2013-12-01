@@ -71,7 +71,8 @@ module Issues
 
     def destroy
       issue.destroy
-      head :ok
+      flash[:notice] = 'Issue was deleted'
+      redirect_to [project, :issues]
     end
 
     private

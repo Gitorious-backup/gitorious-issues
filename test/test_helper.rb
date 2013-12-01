@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] = "test"
 host_app_root = Pathname('../mainline').expand_path
 $LOAD_PATH.unshift(File.join(host_app_root, 'app/models'))
 $LOAD_PATH.unshift(File.join(host_app_root, 'lib'))
+$LOAD_PATH.unshift(Pathname(__FILE__).expand_path.join('lib'))
 
 require File.expand_path(File.join(host_app_root, 'config/environment'))
 require "rails/test_help"

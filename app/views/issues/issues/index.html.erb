@@ -1,28 +1,38 @@
 <div id="gts-pjax-container">
-  <div class="gts-pjax pull-right">
-    <% if admin?(current_user, project) %>
-      <%= link_to 'Manage labels', project_issue_labels_path(project), :class => 'btn' %>
-      <%= link_to 'Manage milestones', project_issue_milestones_path(project), :class => 'btn' %>
-    <% end %>
-    <%= link_to 'Add issue', new_project_issue_path(project), :class => 'btn btn-primary' %>
-  </div>
+  <% if admin?(current_user, project) %>
+    <div class="dropdown pull-right">
+      <a href="#" class="dropdown-toggle btn btn-mini gts-issues-settings-dropdown" data-toggle="dropdown">
+        Settings
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="gts-pjax">
+          <%= link_to 'Manage labels', project_issue_labels_path(project) %>
+        </li>
+        <li class="gts-pjax">
+          <%= link_to 'Manage milestones', project_issue_milestones_path(project) %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
   <h2 class="gts-legend">
     <%= project.title %>'s issues
   </h2>
-  <%= render 'issues/issues/filters', :query => query, :public_queries => public_queries, :private_queries => private_queries %>
-  <table class="table table-stripped gts-project-issues">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>State</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Created at</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody class="gts-tbody-actions gts-delete-links">
-      <%= render issues %>
-    </tbody>
-  </table>
+  <div class="row-fluid">
+    <div class="span2">
+      <% if logged_in? %>
+        <%= render 'issues/issues/filters/saved_queries', :queries => private_queries, :title => 'Your queries', :id => 'private' %>
+        <hr/>
+      <% end %>
+      <%= render 'issues/issues/filters/saved_queries', :queries => public_queries, :title => 'Public queries', :id => 'public' %>
+    </div>
+    <div class="span10">
+      <%= render "issues/issues/filters", :query => query %>
+      <ul class="gts-project-issues">
+        <% issues.each do |issue| %>
+          <%= render 'issues/issues/issue', :issue => issue.renderer(self) %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

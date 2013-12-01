@@ -22,6 +22,7 @@ feature 'Project Issues Tab' do
   scenario 'deleting a label', :js => true do
     visit routes.project_issues_path(project)
 
+    page.execute_script("$('.gts-issues-settings-dropdown').click()")
     click_on 'Manage labels'
 
     within('.gts-project-issue-labels tbody tr:first-child') do

@@ -32,11 +32,11 @@ feature 'Project Issues Tab' do
 
     visit routes.project_issues_path(project)
 
-    within('.gts-project-issues tbody tr:first-child') do
-      click_on 'Delete'
-      sleep 0.5
-      refute page.has_content?('issue #3')
-    end
+    page.execute_script('$(".gts-project-issues .gts-issue:first-child .dropdown-toggle").click()')
+    click_on 'Delete'
+
+    assert page.has_content?('Issue was deleted')
+    refute page.has_content?('issue #3')
   end
 
   scenario 'visiting project issues page as a normal user' do

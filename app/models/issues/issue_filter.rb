@@ -30,7 +30,7 @@ module Issues
         @issues = issues.joins(:labels).where(:issues_labels => { :id => query.label_ids })
       end
 
-      @issues = @issues.group(:id)
+      @issues = @issues.group(:id).map { |issue| Issues::Presenters::IssuePresenter.new(issue) }
     end
   end
 

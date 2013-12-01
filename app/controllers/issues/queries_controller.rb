@@ -5,7 +5,7 @@ module Issues
 
     before_filter :login_required, :except => [:show]
     before_filter :find_project
-    before_filter :find_query, :only => [:show, :edit, :update]
+    before_filter :find_query, :only => [:show, :update, :destroy]
     before_filter :find_queries, :only => [:show]
 
     helper 'issues/application'
@@ -43,10 +43,6 @@ module Issues
       )
     end
 
-    def edit
-      render_form(query)
-    end
-
     def update
       if query.update_attributes(params[:query])
         flash[:notice] = 'Your query was updated'
@@ -54,6 +50,12 @@ module Issues
       else
         render_form(query)
       end
+    end
+
+    def destroy
+      query.destroy
+      flash[:notice] = 'Query was deleted'
+      redirect_to [project, :issues]
     end
 
     private
@@ -75,18 +77,15 @@ module Issues
       find_private_queries
     end
 
-    def render_form(query)
-      render(
-        :template => 'issues/queries/form',
-        :locals => {
-          :query => IssueQuery.build(query),
-          :issue => issue,
-          :project => ProjectPresenter.new(project),
-          :active => :issues
-        },
-        :layout => pjax_request? ? false : true
-      )
+    def can_delete?
+      query.user == current_user || admin?(project, current_user)
     end
+    helper_method :can_delete?
+
+    def active_query
+      query
+    end
+    helper_method :active_query
 
   end
 
