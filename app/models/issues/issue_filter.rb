@@ -22,6 +22,10 @@ module Issues
         @issues = issues.where(:state => query.states)
       end
 
+      if query.states.none? { |state| state == 'resolved' }
+        @issues = issues.not_resolved
+      end
+
       if query.milestone_id.present?
         @issues = issues.where(:milestone_id => query.milestone_id)
       end

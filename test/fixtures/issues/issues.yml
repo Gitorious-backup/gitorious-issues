@@ -5,6 +5,7 @@ one:
   user_id: 1
   project_id: 1
   issue_id: 1
+  state: "new"
 
 two:
   id: 2
@@ -13,6 +14,7 @@ two:
   user_id: 1
   project_id: 1
   issue_id: 2
+  state: "new"
 
 three:
   id: 3
@@ -21,3 +23,13 @@ three:
   user_id: 1
   project_id: 2
   issue_id: 3
+  state: "new"
+
+four:
+  id: 4
+  title: "issue #4"
+  description: "this is issue number four"
+  user_id: 1
+  project_id: 1
+  issue_id: 4
+  state: "resolved"

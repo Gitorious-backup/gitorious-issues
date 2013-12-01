@@ -18,10 +18,9 @@ feature 'Project Issues Tab' do
   scenario 'saving a custom query', :js => true do
     visit routes.project_issues_path(project)
 
+    user.open_pull_box('issue-filters')
     user.check_filter('feature')
-    click_on 'Filter'
-
-    sleep 0.5
+    user.filter_issues
 
     click_on 'Save this query'
 

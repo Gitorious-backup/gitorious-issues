@@ -16,15 +16,24 @@ feature 'Project Issues Tab' do
     assert_content page, 'issue #1'
     assert_content page, 'issue #2'
     refute_content page, 'issue #3'
+    refute_content page, 'issue #4'
 
+    user.open_pull_box('issue-filters')
     user.check_filter('bug')
-    click_on 'Filter'
-
-    sleep 0.5
+    user.filter_issues
 
     assert page.has_content?('issue #1')
     refute page.has_content?('issue #2')
     refute page.has_content?('issue #3')
+
+    user.uncheck_filter('bug')
+    user.check_filter('resolved')
+    user.filter_issues
+
+    refute_content page, 'issue #1'
+    refute_content page, 'issue #2'
+    refute_content page, 'issue #3'
+    assert_content page, 'issue #4'
   end
 
   scenario 'deleting an issue', :js => true do

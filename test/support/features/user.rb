@@ -31,6 +31,14 @@ module Features
       click_on 'Save'
     end
 
+    def resolve_issue(name)
+      click_on name
+      click_on 'Edit'
+      find('#issue_state').select('resolved')
+      click_on 'Save'
+      assert page.has_content?('Issue updated successfuly')
+    end
+
     def create_label(params = {})
       visit routes.new_project_issue_label_path(project)
 
@@ -52,10 +60,15 @@ module Features
       click_on 'Save'
     end
 
+    def filter_issues
+      click_on 'Filter'
+      sleep 0.5
+    end
+
     def check_filter(name)
-      open_pull_box('issue-filters')
       find('label', :text => name).click
     end
+    alias_method :uncheck_filter, :check_filter
 
     def open_pull_box(id)
       find("##{id} .pull-box-header-buttons a").click

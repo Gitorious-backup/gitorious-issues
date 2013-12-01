@@ -31,6 +31,10 @@ module Issues
       order('created_at DESC')
     end
 
+    def self.not_resolved
+      where('state != ?', STATE_RESOLVED)
+    end
+
     def to_param
       issue_id
     end
