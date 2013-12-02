@@ -19,7 +19,7 @@
     </div>
     <div class="gts-markup">
       <% if issue.description.present? %>
-        <%= simple_format(issue.description) %>
+        <%= render_markdown(issue.description).html_safe %>
       <% else %>
         <em>no description...</em>
       <% end %>
