@@ -62,7 +62,7 @@ module Issues
     private
 
     def set_issue_id
-      self.issue_id = next_issue_id
+      self.issue_id ||= next_issue_id
     end
 
     def next_issue_id
