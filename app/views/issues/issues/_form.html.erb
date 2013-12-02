@@ -5,8 +5,12 @@
 <%= gts_form_for([project, issue]) do |f| %>
   <div class="row-fluid">
     <div class="span8">
-      <%= f.input :title, :placeholder => 'Title', :label => false, :input_html => { :class => 'input-expanded' } %>
-      <%= f.input :description, :placeholder => 'Description', :label => false %>
+      <p>
+        <%= f.input_field :title, :placeholder => 'Title', :label => false, :class => 'input-expanded' %>
+      </p>
+      <p>
+        <%= f.input_field :description, :placeholder => 'Description' %>
+      </p>
     </div>
     <div class="span4">
       <div class="well gts-well-lite gts-issue-sidebar-fields">
