@@ -34,6 +34,15 @@ feature 'Project Issues Tab' do
     refute_content page, 'issue #2'
     refute_content page, 'issue #3'
     assert_content page, 'issue #4'
+
+    user.uncheck_filter('resolved')
+    user.check_filter('High')
+    user.filter_issues
+
+    refute_content page, 'issue #1'
+    assert_content page, 'issue #2'
+    refute_content page, 'issue #3'
+    refute_content page, 'issue #4'
   end
 
   scenario 'deleting an issue', :js => true do

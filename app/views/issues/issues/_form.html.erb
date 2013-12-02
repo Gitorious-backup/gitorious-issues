@@ -1,4 +1,5 @@
 <% milestones = Issues::Milestone.where(:project_id => project.id).sorted %>
+<% priorities = Issues::Issue::PRIORITIES.to_a.map(&:reverse) %>
 
 <%= gts_form_for([project, issue]) do |f| %>
   <div class="row-fluid">
@@ -8,9 +9,9 @@
     </div>
     <div class="span4">
       <div class="well gts-well-lite gts-issue-sidebar-fields">
-        <%= f.input :state, :as => :select, :collection => %w(new open resolved invalid), :default => 'new' %>
-        <hr/>
-        <%= f.input :milestone_id, :as => :select, :collection => milestones %>
+        <%= f.input :state, :collection => %w(new open resolved invalid), :default => 'new' %>
+        <%= f.input :priority, :collection => priorities, :default => 1, :required => false %>
+        <%= f.input :milestone_id, :collection => milestones %>
         <hr/>
         <%= render 'issues/issues/form/assignee_widget', :issue => issue, :f => f %>
         <hr/>

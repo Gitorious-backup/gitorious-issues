@@ -30,6 +30,10 @@ module Issues
         @issues = issues.where(:milestone_id => query.milestone_id)
       end
 
+      if query.priority_ids.any?
+        @issues = issues.where(:priority => query.priority_ids)
+      end
+
       if query.label_ids.any?
         @issues = issues.joins(:labels).where(:issues_labels => { :id => query.label_ids })
       end

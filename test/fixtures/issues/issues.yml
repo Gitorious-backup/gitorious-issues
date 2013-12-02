@@ -6,6 +6,7 @@ one:
   project_id: 1
   issue_id: 1
   state: "new"
+  priority: 0
 
 two:
   id: 2
@@ -15,6 +16,7 @@ two:
   project_id: 1
   issue_id: 2
   state: "new"
+  priority: 2
 
 three:
   id: 3
@@ -24,6 +26,7 @@ three:
   project_id: 2
   issue_id: 3
   state: "new"
+  priority: 1
 
 four:
   id: 4
@@ -33,3 +36,4 @@ four:
   project_id: 1
   issue_id: 4
   state: "resolved"
+  priority: 1

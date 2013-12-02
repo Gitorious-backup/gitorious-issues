@@ -5,7 +5,7 @@
   <div class="control-group">
     <%= f.label 'State', :required => false %>
     <div class="controls">
-      <ul class="issue-states">
+      <ul class="issue-states gts-filter-buttons">
         <% %w(new open resolved invalid).each do |state| %>
           <li>
           <%= label_button(state, :tag => :label, :for => "state-#{state}", :active => query.state_active?(state)) do %>
@@ -17,9 +17,23 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label 'Priority', :required => false %>
+    <div class="controls">
+      <ul class="issue-priorities gts-filter-buttons">
+        <% query.priorities.each do |id, name| %>
+          <li>
+            <%= label_button(name, :tag => :label, :for => "priority-#{id}", :active => query.priority_active?(id)) do %>
+              <%= check_box_tag('priority_ids[]', id, query.priority_active?(id), :id => "priority-#{id}") %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label 'Labels', :required => false %>
     <div class="controls">
-      <ul class="issue-labels">
+      <ul class="issue-labels gts-filter-buttons">
         <% query.labels.each do |label| %>
           <li>
             <%= label_button(label.name, :tag => :label, :for => "label-#{label.id}", :color => label.color, :active => query.label_active?(label)) do %>

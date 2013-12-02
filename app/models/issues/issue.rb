@@ -8,11 +8,19 @@ module Issues
 
     DEFAULT_STATE = STATE_NEW
 
+    PRIORITIES = {
+      0 => 'Low',
+      1 => 'Normal',
+      2 => 'High',
+      3 => 'Urgent',
+      4 => 'Immediate'
+    }.freeze
+
     attr_accessible :title, :description, :state, :user_id, :user,
       :project_id, :project, :milestone_id, :milestone,
       :assignee_ids, :label_ids
 
-    validates :title, :user, :project, :issue_id, :presence => true
+    validates :title, :user, :project, :issue_id, :priority, :presence => true
 
     belongs_to :user
     belongs_to :project
