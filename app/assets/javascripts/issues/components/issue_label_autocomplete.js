@@ -16,7 +16,7 @@ this.gts.issueLabelAutocomplete = (function() {
       $li = $('<li/>');
 
       $li.append(
-        $('<button class="btn btn-mini"></button>')
+        $('<button class="btn btn-mini btn-label"></button>')
           .css({ backgroundColor: color })
           .html('<i class="icon-remove icon-white"></i>'+label)
           .attr('id', 'label-'+value)
@@ -68,6 +68,7 @@ this.gts.issueLabelAutocomplete = (function() {
         var item = ui.item;
         $input.val(item.label);
         $input.data('item', item);
+        onConfirm();
         e.preventDefault();
       }
     });
