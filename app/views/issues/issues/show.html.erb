@@ -8,25 +8,38 @@
     <div class="gts-pullbox-content-meta gts-pullbox-content-meta-top">
       <div class="issue-assignees">
         Assigned users:
-        <% issue.assignees.each do |user| %>
-          <%= link_to user.login, main_app.user_path(user) %>
+        <% if issue.assignees.any? %>
+          <% issue.assignees.each do |user| %>
+            <%= link_to user.login, main_app.user_path(user) %>
+          <% end %>
+        <% else %>
+          <em>none</em>
         <% end %>
       </div>
     </div>
     <div class="gts-markup">
-      <%= simple_format(issue.description) %>
+      <% if issue.description.present? %>
+        <%= simple_format(issue.description) %>
+      <% else %>
+        <em>no description...</em>
+      <% end %>
     </div>
-    <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
-      <div class="issue-labels">
-        Labels:
-        <% issue.labels.each do |label| %>
-          <%= content_tag(:span, label.name, :class => 'label', :style => "background-color: #{label.color}") %>
-        <% end %>
+    <% if issue.labels.any? %>
+      <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
+        <div class="issue-labels">
+          Labels:
+          <% issue.labels.each do |label| %>
+            <%= content_tag(:span, label.name, :class => 'label', :style => "background-color: #{label.color}") %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
     <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
-      <div class="issue-milestone">
-        Milestone: <%= issue.milestone.present? ? issue.milestone.name : 'none' %>
+      <div class="issue-milestone pull-left">
+        Milestone: <%= issue.milestone.present? ? issue.milestone.name : '<em>none</em>'.html_safe %>
+      </div>
+      <div class="issue-author pull-right">
+        Reported by <%= link_to issue.user.login, main_app.user_path(issue.user) %>
       </div>
     </div>
   <% end %>

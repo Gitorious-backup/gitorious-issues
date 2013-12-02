@@ -5,7 +5,7 @@
     <div class="gts-comment-meta">
       <%= time_ago(comment.created_at) %>
       <% if comment.user == current_user || admin?(current_user, comment.issue.project) %>
-        <%= link_to 'Edit', [:edit, comment.issue.project, comment.issue, comment], :class => 'btn btn-small' %>
+        <%= link_to 'Edit', [:edit, comment.issue.project, comment.issue, comment], :class => 'btn btn-mini' %>
       <% end %>
     </div>
   </div>

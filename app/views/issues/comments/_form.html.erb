@@ -5,7 +5,9 @@
       <%= link_to(current_user.fullname || current_user.login, main_app.user_path(current_user)) %>
     </div>
     <div class="gts-comment-body">
-      <%= f.input :body, :placeholder => 'Add comment...', :label => false, :input_html => { :class => 'input-expanded gts-textarea-expandable' } %>
+      <p>
+        <%= f.input_field :body, :placeholder => 'Add comment...', :class => 'input-expanded gts-textarea-expandable' %>
+      </p>
       <%= f.submit 'Save', :class => 'btn' %>
     </div>
   </div>
