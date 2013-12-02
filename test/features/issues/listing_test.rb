@@ -27,7 +27,7 @@ feature 'Project Issues Tab' do
     refute page.has_content?('issue #3')
 
     user.uncheck_filter('bug')
-    user.check_filter('resolved')
+    user.check_filter('Resolved')
     user.filter_issues
 
     refute_content page, 'issue #1'
@@ -35,7 +35,7 @@ feature 'Project Issues Tab' do
     refute_content page, 'issue #3'
     assert_content page, 'issue #4'
 
-    user.uncheck_filter('resolved')
+    user.uncheck_filter('Resolved')
     user.check_filter('High')
     user.filter_issues
 

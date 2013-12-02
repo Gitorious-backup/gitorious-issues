@@ -8,7 +8,7 @@ module Issues
     attribute :name,         String
     attribute :project_id,   String, :strict => true
     attribute :milestone_id, Integer
-    attribute :states,       Array[String]
+    attribute :state_ids,    Array[String]
     attribute :priority_ids, Array[Integer]
     attribute :label_ids,    Array[Integer]
 
@@ -24,7 +24,7 @@ module Issues
     end
 
     def active?
-      [:milestone_id, :states, :priority_ids, :label_ids].map { |name| attributes[name] }.any?(&:present?)
+      [:milestone_id, :state_ids, :priority_ids, :label_ids].map { |name| attributes[name] }.any?(&:present?)
     end
 
     def milestones
@@ -36,7 +36,11 @@ module Issues
     end
 
     def priorities
-      { 0 => 'Low', 1 => 'Normal', 2 => 'High', 3 => 'Urgent', 4 => 'Immediate' }
+      Issues::Issue::PRIORITIES
+    end
+
+    def states
+      Issues::Issue::STATES
     end
 
     def label_active?(label)
@@ -48,7 +52,7 @@ module Issues
     end
 
     def state_active?(state)
-      states.include?(state)
+      state_ids.include?(state)
     end
 
     def build

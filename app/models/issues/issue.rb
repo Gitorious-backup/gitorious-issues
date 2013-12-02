@@ -1,23 +1,19 @@
 module Issues
 
   class Issue < ActiveRecord::Base
-    STATE_NEW      = 'new'.freeze
-    STATE_OPEN     = 'open'.freeze
-    STATE_RESOLVED = 'resolved'.freeze
-    STATE_INVALID  = 'invalid'.freeze
+    STATE_NEW      = 'New'.freeze
+    STATE_OPEN     = 'Open'.freeze
+    STATE_RESOLVED = 'Resolved'.freeze
+    STATE_REJECTED = 'Rejected'.freeze
+    STATE_INVALID  = 'Invalid'.freeze
 
     DEFAULT_STATE = STATE_NEW
 
-    PRIORITIES = {
-      0 => 'Low',
-      1 => 'Normal',
-      2 => 'High',
-      3 => 'Urgent',
-      4 => 'Immediate'
-    }.freeze
+    STATES = [STATE_NEW, STATE_OPEN, STATE_RESOLVED, STATE_REJECTED, STATE_INVALID].freeze
+    PRIORITIES = { 0 => 'Low', 1 => 'Normal', 2 => 'High', 3 => 'Urgent', 4 => 'Immediate' }.freeze
 
     attr_accessible :title, :description, :state, :user_id, :user,
-      :project_id, :project, :milestone_id, :milestone,
+      :project_id, :project, :milestone_id, :milestone, :priority,
       :assignee_ids, :label_ids
 
     validates :title, :user, :project, :issue_id, :priority, :presence => true

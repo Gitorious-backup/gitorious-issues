@@ -24,7 +24,7 @@ module Issues
       tag_opts.update(options.except(:active, :tag))
 
       content_tag(tag, tag_opts) {
-        inner_html = name
+        inner_html = name.dup
         inner_html << capture(&block) if block
         inner_html.html_safe
       }

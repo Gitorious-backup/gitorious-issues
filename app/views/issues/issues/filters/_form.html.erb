@@ -6,10 +6,10 @@
     <%= f.label 'State', :required => false %>
     <div class="controls">
       <ul class="issue-states gts-filter-buttons">
-        <% %w(new open resolved invalid).each do |state| %>
+        <% query.states.each do |state| %>
           <li>
-          <%= label_button(state, :tag => :label, :for => "state-#{state}", :active => query.state_active?(state)) do %>
-            <%= check_box_tag('states[]', state, query.state_active?(state), :id => "state-#{state}") %>
+          <%= label_button(state, :tag => :label, :for => "state-#{state.downcase}", :active => query.state_active?(state)) do %>
+            <%= check_box_tag('state_ids[]', state, query.state_active?(state), :id => "state-#{state.downcase}") %>
           <% end %>
           </li>
         <% end %>

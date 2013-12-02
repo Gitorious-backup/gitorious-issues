@@ -28,11 +28,17 @@
     </div>
     <div class="span10">
       <%= render "issues/issues/filters", :query => query %>
-      <ul class="gts-project-issues">
-        <% issues.each do |issue| %>
-          <%= render 'issues/issues/issue', :issue => issue.renderer(self) %>
-        <% end %>
-      </ul>
+      <% if issues.any? %>
+        <ul class="gts-project-issues">
+          <% issues.each do |issue| %>
+            <%= render 'issues/issues/issue', :issue => issue.renderer(self) %>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="well">
+          No issues found
+        </p>
+      <% end %>
     </div>
   </div>
 </div>

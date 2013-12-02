@@ -5,7 +5,7 @@ one:
   user_id: 1
   project_id: 1
   issue_id: 1
-  state: "new"
+  state: "New"
   priority: 0
 
 two:
@@ -15,7 +15,7 @@ two:
   user_id: 1
   project_id: 1
   issue_id: 2
-  state: "new"
+  state: "New"
   priority: 2
 
 three:
@@ -25,7 +25,7 @@ three:
   user_id: 1
   project_id: 2
   issue_id: 3
-  state: "new"
+  state: "New"
   priority: 1
 
 four:
@@ -35,5 +35,5 @@ four:
   user_id: 1
   project_id: 1
   issue_id: 4
-  state: "resolved"
+  state: "Resolved"
   priority: 1

@@ -18,11 +18,11 @@ module Issues
     def filter!
       @issues = issues.where(:project_id => query.project.id)
 
-      if query.states.any?
-        @issues = issues.where(:state => query.states)
+      if query.state_ids.any?
+        @issues = issues.where(:state => query.state_ids)
       end
 
-      if query.states.none? { |state| state == 'resolved' }
+      if query.state_ids.none? { |state| state == Issues::Issue::STATE_RESOLVED }
         @issues = issues.not_resolved
       end
 
