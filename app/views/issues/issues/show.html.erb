@@ -1,5 +1,5 @@
 <div id="gts-pjax-container">
-  <%= pull_box issue.title do %>
+  <%= pull_box "##{issue.issue_id} #{issue.title}" do %>
     <% if can_edit? %>
       <div class="btn-group gts-pjax">
         <%= link_to 'Edit', edit_project_issue_path(issue.project, :issue_id => issue.issue_id), :class => 'btn' %>
