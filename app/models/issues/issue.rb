@@ -48,7 +48,7 @@ module Issues
         flat_map(&:committerships).
         map(&:committer).
         flat_map { |committer| committer.is_a?(User) ? committer : committer.members }.
-        reject { |user| assignees.include?(user) }
+        reject { |user| assignees.include?(user) }.uniq
     end
 
     def label_candidates
