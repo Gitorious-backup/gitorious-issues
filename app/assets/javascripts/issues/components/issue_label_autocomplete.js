@@ -63,7 +63,7 @@ this.gts.issueLabelAutocomplete = (function() {
 
     $input.autocomplete({
       source: labels,
-      position: { my : "right top", at: "right bottom" },
+      appendTo: $input.parents('.autocomplete-widget'),
       select: function(e, ui) {
         var item = ui.item;
         $input.val(item.label);
