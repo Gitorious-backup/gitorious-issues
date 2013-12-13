@@ -1,17 +1,15 @@
-require 'proxy_object'
-
 module Issues
   module Renderers
 
     class IssueRenderer
-      include ProxyObject.new(:view)
+      include Charlatan.new(:view)
 
       attr_reader :issue
 
       delegate :title, :issue_id, :project, :creator?, :to => :issue
 
       def initialize(view, issue)
-        super(view)
+        super
         @issue = issue
       end
 

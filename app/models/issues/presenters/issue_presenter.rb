@@ -1,9 +1,7 @@
-require 'proxy_object'
-
 module Issues
   module Presenters
     class IssuePresenter
-      include ProxyObject.new(:issue)
+      include Charlatan.new(:issue)
 
       def to_s
         title
