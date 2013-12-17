@@ -35,6 +35,11 @@
       </div>
     <% end %>
     <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
+      <div class="issue-priority pull-left">
+        Priority: <%= issue.priority %>
+      </div>
+    </div>
+    <div class="gts-pullbox-content-meta gts-pullbox-content-meta-bottom">
       <div class="issue-milestone pull-left">
         Milestone: <%= issue.milestone.present? ? issue.milestone.name : '<em>none</em>'.html_safe %>
       </div>

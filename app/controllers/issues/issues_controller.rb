@@ -83,7 +83,8 @@ module Issues
     end
 
     def find_issue
-      @issue = Issue.find_by_project_id_and_issue_id!(project.id, params[:issue_id])
+      issue = Issue.find_by_project_id_and_issue_id!(project.id, params[:issue_id])
+      @issue = Presenters::IssuePresenter.new(issue)
     end
 
     def find_queries
