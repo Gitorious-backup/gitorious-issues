@@ -4,17 +4,6 @@ module Issues
     class CreateIssue
       attr_reader :user, :project, :params, :issue
 
-      class Params
-        include Virtus.model
-
-        attribute :title,        String
-        attribute :description,  String
-        attribute :state,        String, :default => 'new'
-        attribute :milestone_id, Integer
-        attribute :assignee_ids, Array[Integer]
-        attribute :label_ids,    Array[Integer]
-      end
-
       def self.call(context)
         usecase = new(
           context.fetch(:user),
