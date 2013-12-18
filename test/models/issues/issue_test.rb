@@ -26,6 +26,17 @@ describe Issues::Issue do
     end
   end
 
+  describe 'assignee_candidates' do
+    fixtures 'issues/issues', :repositories, :committerships, :groups, :memberships
+
+    it 'returns users from mainlines' do
+      issue = issues_issues(:one)
+      johan = users(:johan)
+
+      issue.assignee_candidates.must_equal([johan])
+    end
+  end
+
   describe '#create' do
     let(:user)    { users(:johan) }
     let(:project) { projects(:johans) }

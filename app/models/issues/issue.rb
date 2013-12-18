@@ -46,6 +46,8 @@ module Issues
 
     def assignee_candidates
       project.repositories.
+        mainlines.
+        includes(:committerships => :committer).
         flat_map(&:committerships).
         map(&:committer).
         flat_map { |committer| committer.is_a?(User) ? committer : committer.members }.
