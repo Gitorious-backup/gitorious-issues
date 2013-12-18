@@ -7,12 +7,14 @@ describe Issues::Issue do
 
   describe '.call' do
     it 'update existing issue' do
-      Issues::UseCases::UpdateIssue.call(:issue => issue, :params => { :title => 'other' })
+      params = { :title => 'other', :priority => 4 }
+      Issues::UseCases::UpdateIssue.call(:issue => issue, :params => params)
 
       issue.reload
 
       assert issue.persisted?
       assert_equal 'other', issue.title
+      assert_equal 4, issue.priority
     end
   end
 end

@@ -9,7 +9,12 @@ describe Issues::Issue do
 
   describe '.call' do
     def params(num)
-      { :title => "issue ##{num}", :assignee_ids => [user.id], :label_ids => [label.id] }
+      {
+        :title => "issue ##{num}",
+        :priority => num,
+        :assignee_ids => [user.id],
+        :label_ids => [label.id]
+      }
     end
 
     it 'persists a new issue' do
@@ -29,6 +34,7 @@ describe Issues::Issue do
       assert_equal project, issue1.project
       assert issue1.assignees.include?(user)
       assert issue1.labels.include?(label)
+      assert_equal 1, issue1.priority
       assert_equal 1, issue1.issue_id
 
       assert issue2.persisted?
@@ -37,6 +43,7 @@ describe Issues::Issue do
       assert_equal project, issue2.project
       assert issue2.assignees.include?(user)
       assert issue2.labels.include?(label)
+      assert_equal 2, issue2.priority
       assert_equal 2, issue2.issue_id
     end
   end

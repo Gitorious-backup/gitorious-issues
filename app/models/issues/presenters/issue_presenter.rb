@@ -19,8 +19,8 @@ module Issues
         user.fullname || user.login
       end
 
-      def priority
-        Issue::PRIORITIES[@issue.priority]
+      def priority_name
+        Issue::PRIORITIES[priority]
       end
 
       def renderer(view)

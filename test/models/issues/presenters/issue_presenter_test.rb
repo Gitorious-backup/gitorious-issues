@@ -13,12 +13,12 @@ module Issues
       Presenters::IssuePresenter.model_name.must_equal(Issue.model_name)
     end
 
-    it "returns priority as a word" do
+    it "returns priority name" do
       Issue::PRIORITIES.each do |value, name|
         issue = stub(priority: value)
         presenter = Presenters::IssuePresenter.new(issue)
 
-        presenter.priority.must_equal(name)
+        presenter.priority_name.must_equal(name)
       end
     end
 
