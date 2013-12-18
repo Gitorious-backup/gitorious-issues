@@ -14,8 +14,8 @@
     </div>
     <div class="span4">
       <div class="well gts-well-lite gts-issue-sidebar-fields">
-        <%= f.input :state, :collection => states, :default => Issues::Issue::DEFAULT_STATE %>
-        <%= f.input :priority, :collection => priorities, :default => 1, :required => false %>
+        <%= f.input :state, :collection => states %>
+        <%= f.input :priority, :collection => priorities %>
         <%= f.input :milestone_id, :collection => milestones %>
         <hr/>
         <%= render 'issues/issues/form/assignee_widget', :issue => issue, :f => f %>

@@ -22,7 +22,10 @@ module Issues
     end
 
     def new
-      render_form(Issue.new(:project_id => project.id))
+      issue = Issue.new(:project_id => project.id,
+                        :state => Issue::DEFAULT_STATE,
+                        :priority => Issue::DEFAULT_PRIORITY)
+      render_form(issue)
     end
 
     def create

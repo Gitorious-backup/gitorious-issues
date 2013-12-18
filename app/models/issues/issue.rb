@@ -11,6 +11,7 @@ module Issues
 
     STATES = [STATE_NEW, STATE_OPEN, STATE_RESOLVED, STATE_REJECTED, STATE_INVALID].freeze
     PRIORITIES = { 0 => 'Low', 1 => 'Normal', 2 => 'High', 3 => 'Urgent', 4 => 'Immediate' }.freeze
+    DEFAULT_PRIORITY = 1
 
     attr_accessible :title, :description, :state, :user_id, :user,
       :project_id, :project, :milestone_id, :milestone, :priority,
