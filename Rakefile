@@ -20,7 +20,7 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-APP_RAKEFILE = File.expand_path("../../mainline/Rakefile", __FILE__)
+APP_RAKEFILE = File.expand_path("../../../Rakefile", __FILE__)
 load 'rails/tasks/engine.rake'
 
 
@@ -33,6 +33,13 @@ Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'
   t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
+Rake::TestTask.new(:unit_test) do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = 'test/models/**/*_test.rb'
   t.verbose = false
 end
 

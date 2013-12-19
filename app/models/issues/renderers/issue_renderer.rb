@@ -1,6 +1,5 @@
 module Issues
   module Renderers
-
     class IssueRenderer
       include Charlatan.new(:view)
 
@@ -42,7 +41,7 @@ module Issues
         content_tag(:ul) {
           issue.labels.map { |label|
             content_tag(:li) {
-              content_tag(:span, label.name, :class => 'label', :style => "background-color: #{label.color}")
+              LabelRenderer.new(@view).label_link(issue, label)
             }
           }.join.html_safe
         }

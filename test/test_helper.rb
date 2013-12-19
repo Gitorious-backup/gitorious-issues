@@ -1,7 +1,7 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-host_app_root = Pathname('../mainline').expand_path
+host_app_root = Pathname('../../').expand_path
 $LOAD_PATH.unshift(File.join(host_app_root, 'app/models'))
 $LOAD_PATH.unshift(File.join(host_app_root, 'lib'))
 $LOAD_PATH.unshift(Pathname(__FILE__).expand_path.join('lib'))
@@ -71,7 +71,4 @@ require 'group'
 require 'user'
 require 'project'
 
-# Load fixtures from the engine
-if ActiveSupport::TestCase.method_defined?(:fixture_path=)
-  ActiveSupport::TestCase.fixture_path = File.join(host_app_root, 'test/fixtures')
-end
+ActiveSupport::TestCase.fixture_path = File.join(host_app_root, 'test/fixtures')

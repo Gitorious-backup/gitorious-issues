@@ -2,4 +2,4 @@ source "https://rubygems.org"
 
 gemspec
 
-eval_gemfile '../mainline/Gemfile'
+eval_gemfile '../../Gemfile'

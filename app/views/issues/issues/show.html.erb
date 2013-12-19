@@ -29,7 +29,7 @@
         <div class="issue-labels">
           Labels:
           <% issue.labels.each do |label| %>
-            <%= content_tag(:span, label.name, :class => 'label', :style => "background-color: #{label.color}") %>
+            <%= Issues::Renderers::LabelRenderer.new(self).label_link(issue, label) %>
           <% end %>
         </div>
       </div>
