@@ -27,13 +27,15 @@ describe Issues::Issue do
   end
 
   describe 'assignee_candidates' do
-    fixtures 'issues/issues', :repositories, :committerships, :groups, :memberships
+    it 'returns committers of a project without assignees' do
+      project = Project.new
+      issue = Issues::Issue.new(project: project)
+      johan = User.new(fullname: 'johan')
+      mike = User.new(fullname: 'mike')
+      issue.assignees << johan
+      issue.project.stubs(:members).returns([johan, mike])
 
-    it 'returns users from mainlines' do
-      issue = issues_issues(:one)
-      johan = users(:johan)
-
-      issue.assignee_candidates.must_equal([johan])
+      issue.assignee_candidates.must_equal([mike])
     end
   end
 

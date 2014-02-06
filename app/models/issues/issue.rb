@@ -45,12 +45,7 @@ module Issues
     end
 
     def assignee_candidates
-      project.repositories
-             .mainlines
-             .map(&:committerships)
-             .flat_map(&:committers)
-             .uniq
-             .reject { |user| assignees.include?(user) }
+      project.members.reject { |user| assignees.include?(user) }
     end
 
     def label_candidates
