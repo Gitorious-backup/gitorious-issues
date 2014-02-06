@@ -12,6 +12,7 @@
     <%= l(label.created_at) %>
   </td>
   <td>
+    <%= link_to 'Edit', edit_project_issue_label_path(label.project, label), :class => 'btn btn-mini' %>
     <%= link_to 'Delete', [label.project, :issue, label], :class => 'btn btn-mini btn-danger' %>
   </td>
 </tr>

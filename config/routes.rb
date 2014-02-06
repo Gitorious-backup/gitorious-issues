@@ -4,9 +4,9 @@ Issues::Engine.routes.draw do
       get 'labels' => 'labels#index', :as => :project_issue_labels
       get 'labels/new' => 'labels#new', :as => :new_project_issue_label
       post 'labels' => 'labels#create'
-      put 'labels' => 'labels#update'
-      get 'labels/:id' => 'labels#show', :as => :project_issue_label
-      delete 'labels/:id' => 'labels#destroy'
+      put 'labels/:id' => 'labels#update'
+      get 'labels/:id/edit' => 'labels#edit', :as => :edit_project_issue_label
+      delete 'labels/:id' => 'labels#destroy', :as => :project_issue_label
 
       get 'milestones' => 'milestones#index', :as => :project_issue_milestones
       get 'milestones/new' => 'milestones#new', :as => :new_project_issue_milestone

@@ -41,6 +41,14 @@ module Issues
       end
     end
 
+    def update
+      if UseCases::UpdateLabel.call(:label => label, :params => params[:label]).persisted?
+        redirect_to [project, :issue, :labels]
+      else
+        render_form(label)
+      end
+    end
+
     def destroy
       label.destroy
       head :ok
